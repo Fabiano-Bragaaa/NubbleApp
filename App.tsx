@@ -5,6 +5,9 @@ import {ThemeProvider} from '@shopify/restyle';
 import {theme} from './src/theme/theme';
 import {Box} from './src/components/Box/Box';
 import {Text} from './src/components/Text/Text';
+import {EyeOffIcon} from './src/assets/icons/EyeOffIcon';
+import {EyeOnIcon} from './src/assets/icons/EyeOnIcon';
+import {Icon} from './src/components/Icon/Icon';
 
 function App(): React.JSX.Element {
   return (
@@ -14,8 +17,9 @@ function App(): React.JSX.Element {
           <Text preset="paragraphLarge" bold>
             Ola
           </Text>
-          <Button title="entrar" mb="s32" mt="s14" />
-          <Button loading title="entrar" />
+          <Button disabled title="primary" mb="s32" mt="s14" />
+          <Button title="Ouline" preset="outline" />
+          <Icon name="bookmarkFill" color="carrotSecondary" size={50} />
         </Box>
       </SafeAreaView>
     </ThemeProvider>
