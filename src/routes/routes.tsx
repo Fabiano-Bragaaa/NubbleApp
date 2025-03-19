@@ -1,8 +1,7 @@
-import {IconProps} from '@components';
 import {NavigationContainer} from '@react-navigation/native';
-
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
+import {IconProps} from '@components';
 import {ForgetPassword, Login, SignUp, Success} from '@screens';
 
 export type RootStackParamList = {
