@@ -14,7 +14,7 @@ import {
   spacingShorthand,
   SpacingShorthandProps,
 } from '@shopify/restyle';
-import {Theme} from '../../theme/theme';
+import {Theme} from '@theme';
 import {TouchableOpacity, TouchableOpacityProps} from 'react-native';
 import {ComponentProps} from 'react';
 
