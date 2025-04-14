@@ -17,7 +17,7 @@ import {HomeEmpty} from './components/HomeEmpty';
 import {HomeHeader} from './components/HomeHeader';
 
 export function Home({navigation}: AppTabScreenProps<'Home'>) {
-  const {error, loading, postList, refresh, fetchNextPage} = usePostList();
+  const {error, loading, list, refresh, fetchNextPage} = usePostList();
 
   const flatListRef = useRef<FlatList<Post>>(null);
   useScrollToTop(flatListRef);
@@ -30,7 +30,7 @@ export function Home({navigation}: AppTabScreenProps<'Home'>) {
     <Screen style={$screen}>
       <FlatList
         ref={flatListRef}
-        data={postList}
+        data={list}
         keyExtractor={item => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
@@ -41,7 +41,7 @@ export function Home({navigation}: AppTabScreenProps<'Home'>) {
         }
         refreshing={loading}
         // eslint-disable-next-line react-native/no-inline-styles
-        contentContainerStyle={{flex: postList.length === 0 ? 1 : undefined}}
+        contentContainerStyle={{flex: list.length === 0 ? 1 : undefined}}
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
           <HomeEmpty loading={loading} error={error} refetch={refresh} />
