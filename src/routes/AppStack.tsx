@@ -9,7 +9,7 @@ export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabBottomTabParamList>;
   Settings: undefined;
   PostComment: {
-    postId: string;
+    postId: number;
   };
 };
 
@@ -21,7 +21,7 @@ export function AppStack() {
       screenOptions={{headerShown: false, fullScreenGestureEnabled: false}}>
       <Screen name="AppTabNavigator" component={AppTabNavigator} />
       <Screen name="Settings" component={Settings} />
-      <Screen name="PostComment" component={PostComment}/>
+      <Screen name="PostComment" component={PostComment} />
     </Navigator>
   );
 }
