@@ -22,6 +22,7 @@ export function Screen({
   ...boxProps
 }: ScreenProps) {
   const {top, bottom} = useAppSafeArea();
+
   const {colors} = useAppTheme();
 
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
