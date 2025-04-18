@@ -18,7 +18,8 @@ import {
 
 export function PostComment({route}: AppScreenProps<'PostComment'>) {
   const postId = route.params.postId;
-  const {list, fetchNextPage, hasNextPage} = usePostCommentList(postId);
+  const {list, fetchNextPage, hasNextPage, refresh} =
+    usePostCommentList(postId);
 
   function renderItem({item}: ListRenderItemInfo<PostCommentProps>) {
     return <PostCommentItem postComment={item} />;
@@ -38,7 +39,7 @@ export function PostComment({route}: AppScreenProps<'PostComment'>) {
             />
           }
         />
-        <PostCommentTextMessage postId={postId} />
+        <PostCommentTextMessage postId={postId} onAddComment={refresh} />
       </Box>
     </Screen>
   );
