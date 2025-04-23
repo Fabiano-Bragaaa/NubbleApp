@@ -15,8 +15,6 @@ export function ForgetPassword({
 }: AuthScreenProps<'ForgetPassword'>) {
   const {reset} = useResetNavigationSuccess();
 
-  const ola = 'ola';
-
   const {control, formState, handleSubmit} = useForm<typeforgotPasswordSchema>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {

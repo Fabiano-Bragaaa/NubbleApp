@@ -1,14 +1,12 @@
-import {useState} from 'react';
 import {FlatList, ListRenderItemInfo} from 'react-native';
 
 import {
   PostComment as PostCommentProps,
-  usePostCommentCreate,
   usePostCommentList,
   useUser,
 } from '@domain';
 
-import {Box, Screen, TextMessage} from '@components';
+import {Box, Screen} from '@components';
 import {AppScreenProps} from '@routes';
 
 import {
