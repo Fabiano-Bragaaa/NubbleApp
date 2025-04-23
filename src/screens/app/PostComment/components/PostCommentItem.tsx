@@ -1,14 +1,28 @@
 import {Alert, Pressable} from 'react-native';
 
-import {PostComment, usePostCommentRemove} from '@domain';
+import {PostComment, postCommentService, usePostCommentRemove} from '@domain';
 
 import {Box, ProfileAvatar, Text} from '@components';
 
 interface Props {
   postComment: PostComment;
+  userId: number;
+  postAuthorId: number;
+  onRemoveComment: () => void;
 }
-export function PostCommentItem({postComment}: Props) {
-  const {mutate} = usePostCommentRemove();
+export function PostCommentItem({
+  postComment,
+  onRemoveComment,
+  postAuthorId,
+  userId,
+}: Props) {
+  const {mutate} = usePostCommentRemove({onSucess: onRemoveComment});
+
+  const isAllowToDelete = postCommentService.isAllowToDelete(
+    postComment,
+    userId,
+    postAuthorId,
+  );
 
   function confirmRemove() {
     Alert.alert('Deseja excluir o comentario?', 'pressione confirmar', [
@@ -24,7 +38,7 @@ export function PostCommentItem({postComment}: Props) {
   }
 
   return (
-    <Pressable onLongPress={confirmRemove}>
+    <Pressable disabled={!isAllowToDelete} onLongPress={confirmRemove}>
       <Box flexDirection="row" mb="s16" alignItems="center">
         <ProfileAvatar imageUrl={postComment.author.profileURL} />
         <Box ml="s16" flex={1}>

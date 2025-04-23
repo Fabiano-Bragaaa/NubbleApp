@@ -5,6 +5,7 @@ import {
   PostComment as PostCommentProps,
   usePostCommentCreate,
   usePostCommentList,
+  useUser,
 } from '@domain';
 
 import {Box, Screen, TextMessage} from '@components';
@@ -18,11 +19,21 @@ import {
 
 export function PostComment({route}: AppScreenProps<'PostComment'>) {
   const postId = route.params.postId;
+  const postAuthorId = route.params.postAuthor;
   const {list, fetchNextPage, hasNextPage, refresh} =
     usePostCommentList(postId);
 
+  const {id} = useUser();
+
   function renderItem({item}: ListRenderItemInfo<PostCommentProps>) {
-    return <PostCommentItem postComment={item} />;
+    return (
+      <PostCommentItem
+        postComment={item}
+        onRemoveComment={refresh}
+        userId={id}
+        postAuthorId={postAuthorId}
+      />
+    );
   }
 
   return (
