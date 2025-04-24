@@ -1,7 +1,7 @@
 import {Alert, Pressable} from 'react-native';
 
 import {PostComment, postCommentService, usePostCommentRemove} from '@domain';
-import {useToast} from '@services';
+import {useToastService} from '@services';
 
 import {Box, ProfileAvatar, Text} from '@components';
 
@@ -17,7 +17,7 @@ export function PostCommentItem({
   postAuthorId,
   userId,
 }: Props) {
-  const {showToast} = useToast();
+  const {showToast} = useToastService();
   const {mutate} = usePostCommentRemove({
     onSucess: () => {
       onRemoveComment();
