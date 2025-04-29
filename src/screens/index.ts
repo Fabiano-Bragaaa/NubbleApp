@@ -7,6 +7,6 @@ export * from './app/Home/Home';
 export * from './app/Favorite/Favorite';
 export * from './app/MyProfile/MyProfile';
 export * from './app/NewPost/NewPost';
-
 export * from './app/Settings/Settings';
 export * from './app/PostComment/PostComment';
+export * from './app/Profile/Profile';

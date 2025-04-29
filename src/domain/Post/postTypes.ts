@@ -15,7 +15,7 @@ export interface Post {
 
 export interface PostAPI {
   id: number; // 1;
-  text: 'Bom dia!';
+  text: string; //'Bom dia!';
   user_id: number; // 1 1;
   image_url: string; // 'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/post1.jpg';
   is_fixed: boolean; // false;
