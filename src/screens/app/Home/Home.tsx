@@ -17,7 +17,7 @@ import {HomeEmpty} from './components/HomeEmpty';
 import {HomeHeader} from './components/HomeHeader';
 
 export function Home({navigation}: AppTabScreenProps<'Home'>) {
-  const {error, loading, list, refresh, fetchNextPage} = usePostList();
+  const {isError, isLoading, list, refresh, fetchNextPage} = usePostList();
 
   const flatListRef = useRef<FlatList<Post>>(null);
   useScrollToTop(flatListRef);
@@ -37,14 +37,13 @@ export function Home({navigation}: AppTabScreenProps<'Home'>) {
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.1}
         refreshControl={
-          <RefreshControl refreshing={loading} onRefresh={refresh} />
+          <RefreshControl refreshing={isLoading} onRefresh={refresh} />
         }
-        refreshing={loading}
-        // eslint-disable-next-line react-native/no-inline-styles
+        refreshing={isLoading}
         contentContainerStyle={{flex: list.length === 0 ? 1 : undefined}}
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
-          <HomeEmpty loading={loading} error={error} refetch={refresh} />
+          <HomeEmpty loading={isLoading} error={isError} refetch={refresh} />
         }
       />
     </Screen>
