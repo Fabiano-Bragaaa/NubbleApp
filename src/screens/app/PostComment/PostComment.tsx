@@ -18,8 +18,7 @@ import {
 export function PostComment({route}: AppScreenProps<'PostComment'>) {
   const postId = route.params.postId;
   const postAuthorId = route.params.postAuthor;
-  const {list, fetchNextPage, hasNextPage, refresh} =
-    usePostCommentList(postId);
+  const {list, fetchNextPage, hasNextPage} = usePostCommentList(postId);
 
   const {id} = useUser();
 
@@ -27,9 +26,9 @@ export function PostComment({route}: AppScreenProps<'PostComment'>) {
     return (
       <PostCommentItem
         postComment={item}
-        onRemoveComment={refresh}
         userId={id}
         postAuthorId={postAuthorId}
+        postId={postId}
       />
     );
   }

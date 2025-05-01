@@ -20,8 +20,8 @@ export function usePostCommentCreate(
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.PostCommentList, postId],
       });
-      if (options?.onSucess) {
-        options.onSucess(data);
+      if (options?.onSuccess) {
+        options.onSuccess(data);
       }
     },
     onError: () => {
