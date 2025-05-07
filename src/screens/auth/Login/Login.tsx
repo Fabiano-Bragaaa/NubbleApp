@@ -1,4 +1,6 @@
+import {useAuthSignIn} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useToastService} from '@services';
 import {useForm} from 'react-hook-form';
 
 import {
@@ -13,6 +15,13 @@ import {AuthScreenProps} from '@routes';
 import {typeLoginSchema, loginSchema} from './loginSchema';
 
 export function Login({navigation}: AuthScreenProps<'Login'>) {
+  const {showToast} = useToastService();
+  const {isLoading, signIn} = useAuthSignIn({
+    onError: message => {
+      showToast({message, type: 'error'});
+    },
+  });
+
   const {control, formState, handleSubmit} = useForm<typeLoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -23,7 +32,7 @@ export function Login({navigation}: AuthScreenProps<'Login'>) {
   });
 
   function submitForm({email, password}: typeLoginSchema) {
-    console.log({email, password});
+    signIn({email, password});
   }
 
   function navigateToSignUp() {
@@ -67,6 +76,7 @@ export function Login({navigation}: AuthScreenProps<'Login'>) {
         Esqueci minha senha
       </Text>
       <Button
+        loading={isLoading}
         disabled={!formState.isValid}
         mt="s48"
         title="Entrar"
