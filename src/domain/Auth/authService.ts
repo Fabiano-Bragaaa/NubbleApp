@@ -27,7 +27,7 @@ function updateToken(token: string) {
   api.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 
-function removeToken(token: string) {
+function removeToken() {
   api.defaults.headers.common.Authorization = null;
 }
 
