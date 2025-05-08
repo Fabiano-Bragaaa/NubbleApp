@@ -1,9 +1,5 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'http://192.168.86.8:3333/',
-  headers: {
-    Authorization:
-      'Bearer Nw.ciTokF5eWLbQpJzc-DSdeZghMxIqyVOkafdDGdRW-HWWebMNd2IzmvPaZ7qB',
-  },
+  baseURL: 'http://192.168.86.6:3333/',
 });
