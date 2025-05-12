@@ -16,8 +16,7 @@ export function useAuthSignIn(options?: MutationOptions<AuthCredentials>) {
     mutationFn: ({email, password}) => authService.signIn(email, password),
     retry: false,
     onSuccess: authCredentials => {
-      authService.updateToken(authCredentials.token),
-        saveCredentials(authCredentials);
+      saveCredentials(authCredentials);
     },
 
     onError: error => {

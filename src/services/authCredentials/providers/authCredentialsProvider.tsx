@@ -1,8 +1,10 @@
-import {createContext, PropsWithChildren, useState} from 'react';
+import {createContext, PropsWithChildren, useEffect, useState} from 'react';
 
-import {AuthCredentials} from '@domain';
+import {AuthCredentials, authService} from '@domain';
 
 import {AuthCredentialsService} from '../authCredentialsType';
+
+import {authCredentialsStorage} from './authCredentialsStorage';
 
 export const AuthCredentialsContext = createContext<AuthCredentialsService>({
   authCredentials: null,
@@ -17,13 +19,35 @@ export function AuthCredentialsProvider({children}: PropsWithChildren<{}>) {
   );
   const [isLoading, setIsLoading] = useState(true);
 
+  async function startAuthCredentials() {
+    try {
+      const ac = await authCredentialsStorage.get();
+      if (ac) {
+        authService.updateToken(ac.token);
+        setAuhCredentials(ac);
+      }
+    } catch (err) {
+      //TODO
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   async function saveCredentials(ac: AuthCredentials): Promise<void> {
+    authService.updateToken(ac.token);
+    authCredentialsStorage.set(ac);
     setAuhCredentials(ac);
   }
 
   async function removeCredentials(): Promise<void> {
+    authService.removeToken();
+    authCredentialsStorage.remove();
     setAuhCredentials(null);
   }
+
+  useEffect(() => {
+    startAuthCredentials();
+  }, []);
 
   return (
     <AuthCredentialsContext.Provider
