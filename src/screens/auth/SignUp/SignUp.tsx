@@ -1,3 +1,4 @@
+import {useAuthSignUp} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
 import {useForm} from 'react-hook-form';
 
@@ -9,35 +10,44 @@ import {
   Text,
 } from '@components';
 import {useResetNavigationSuccess} from '@hooks';
-import {AuthScreenProps} from '@routes';
+import {AuthScreenProps, AuthStackParamList} from '@routes';
 
 import {signUpSchema, typeSignUpSchema} from './signUpSchema';
 
-export function SignUp({navigation}: AuthScreenProps<'SignUp'>) {
+const resetParam: AuthStackParamList['Success'] = {
+  title: 'Sua conta foi criada com sucesso!',
+  description: 'Agora é só fazer login na nossa plataforma',
+  icon: {
+    color: 'success',
+    name: 'checkRound',
+  },
+};
+
+const defaultValues: typeSignUpSchema = {
+ username: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+};
+
+export function SignUp({}: AuthScreenProps<'SignUp'>) {
   const {reset} = useResetNavigationSuccess();
+
+  const {isLoading, signUp} = useAuthSignUp({
+    onSuccess: () => {
+      reset(resetParam);
+    },
+  });
 
   const {control, formState, handleSubmit} = useForm<typeSignUpSchema>({
     resolver: zodResolver(signUpSchema),
-    defaultValues: {
-      username: '',
-      fullName: '',
-      email: '',
-      password: '',
-    },
+    defaultValues,
     mode: 'onChange',
   });
 
   function submitForm(props: typeSignUpSchema) {
-    console.log(props);
-
-    // reset({
-    //   title: 'Sua conta foi criada com sucesso!',
-    //   description: 'Agora é só fazer login na nossa plataforma',
-    //   icon: {
-    //     color: 'success',
-    //     name: 'checkRound',
-    //   },
-    // });
+    signUp(props);
   }
 
   return (
@@ -56,10 +66,19 @@ export function SignUp({navigation}: AuthScreenProps<'SignUp'>) {
 
       <FormTextInput
         control={control}
-        name="fullName"
+        name="firstName"
         autoCapitalize="words"
-        label="Nome completo"
-        placeholder="Digite seu nome completo"
+        label="Nome"
+        placeholder="Digite seu nome"
+        boxProps={{mb: 's20'}}
+      />
+
+      <FormTextInput
+        control={control}
+        name="lastName"
+        autoCapitalize="words"
+        label="Sobrenome"
+        placeholder="Digite seu sobrenome"
         boxProps={{mb: 's20'}}
       />
 
@@ -83,6 +102,7 @@ export function SignUp({navigation}: AuthScreenProps<'SignUp'>) {
         onPress={handleSubmit(submitForm)}
         disabled={!formState.isValid}
         title="Criar minha conta"
+        loading={isLoading}
       />
     </Screen>
   );
