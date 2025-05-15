@@ -14,6 +14,7 @@ import {useResetNavigationSuccess} from '@hooks';
 import {AuthScreenProps, AuthStackParamList} from '@routes';
 
 import {signUpSchema, typeSignUpSchema} from './signUpSchema';
+import {useAsyncValidation} from './useAsyncValidation';
 
 const resetParam: AuthStackParamList['Success'] = {
   title: 'Sua conta foi criada com sucesso!',
@@ -52,13 +53,9 @@ export function SignUp({}: AuthScreenProps<'SignUp'>) {
     signUp(props);
   }
 
-  const username = watch('username');
-  const usernameState = getFieldState('username');
-  const usernameIsValid = !usernameState.invalid && usernameState.isDirty;
-
-  const userNameQuery = useAuthIsUsernameAvailable({
-    username,
-    enabled: usernameIsValid,
+  const {usernameValidation, emailValidation} = useAsyncValidation({
+    watch,
+    getFieldState,
   });
 
   return (
@@ -72,12 +69,10 @@ export function SignUp({}: AuthScreenProps<'SignUp'>) {
         name="username"
         label="Seu username"
         placeholder="@"
-        errorMessage={
-          userNameQuery.isUnavailable ? 'username indisponível' : undefined
-        }
+        errorMessage={usernameValidation.errorMessage}
         boxProps={{mb: 's20'}}
         RightComponent={
-          userNameQuery.isFetching ? (
+          usernameValidation.isFetching ? (
             <ActivityIndicator size="small" />
           ) : undefined
         }
@@ -105,8 +100,14 @@ export function SignUp({}: AuthScreenProps<'SignUp'>) {
         control={control}
         name="email"
         label="E-mail"
+        errorMessage={emailValidation.errorMessage}
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's20'}}
+         RightComponent={
+          emailValidation.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormPasswordTextInput
@@ -119,11 +120,7 @@ export function SignUp({}: AuthScreenProps<'SignUp'>) {
 
       <Button
         onPress={handleSubmit(submitForm)}
-        disabled={
-          !formState.isValid ||
-          userNameQuery.isFetching ||
-          userNameQuery.isUnavailable
-        }
+        disabled={!formState.isValid || usernameValidation.notReady || emailValidation.notReady}
         title="Criar minha conta"
         loading={isLoading}
       />
