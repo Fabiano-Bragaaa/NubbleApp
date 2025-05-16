@@ -53,6 +53,14 @@ function removeToken() {
   api.defaults.headers.common.Authorization = null;
 }
 
+async function authenticateByRefreshToken(
+  refreshToken: string,
+): Promise<AuthCredentials> {
+  const acAPI = await authApi.refreshToken(refreshToken);
+
+  return authAdapter.toAuth(acAPI);
+}
+
 export const authService = {
   signIn,
   signOut,
@@ -62,4 +70,5 @@ export const authService = {
   isEmailAvailable,
   isUserNameAvailable,
   requestNewPassword,
+  authenticateByRefreshToken,
 };
