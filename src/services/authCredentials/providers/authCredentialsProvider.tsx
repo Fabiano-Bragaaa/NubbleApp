@@ -1,6 +1,6 @@
 import {createContext, PropsWithChildren, useEffect, useState} from 'react';
 
-import {api} from '@api';
+import {api, registerInterceptor} from '@api';
 import {AuthCredentials, authService} from '@domain';
 
 import {authApi} from '../../../domain/Auth/authApi';
@@ -22,45 +22,15 @@ export function AuthCredentialsProvider({children}: PropsWithChildren<{}>) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const interceptor = api.interceptors.response.use(
-      response => response,
-      async responseReject => {
-        const failedRequest = responseReject.config;
-
-        const hasNotRefreshToken = !authCredentials?.refreshToken;
-        const isRefreshTokenRequest =
-          authApi.isRefreshTokenRequest(failedRequest);
-
-        if (responseReject.response.status === 401) {
-          if (
-            hasNotRefreshToken ||
-            isRefreshTokenRequest ||
-            failedRequest.sent
-          ) {
-            console.log('caiu aq');
-
-            removeCredentials();
-            return Promise.reject(responseReject);
-          }
-
-          failedRequest.sent = true;
-
-          const newAuthCredentials =
-            await authService.authenticateByRefreshToken(
-              authCredentials?.refreshToken,
-            );
-
-          saveCredentials(newAuthCredentials);
-          failedRequest.headers.Authorization = `Bearer ${newAuthCredentials.token}`;
-
-          return api(failedRequest);
-        }
-      },
-    );
+    const interceptor = registerInterceptor({
+      authCredentials,
+      removeCredentials,
+      saveCredentials,
+    });
 
     //remove listener when component unmount
-    return () => api.interceptors.response.eject(interceptor);
-  }, [authCredentials?.refreshToken]);
+    return interceptor;
+  }, [authCredentials]);
 
   async function startAuthCredentials() {
     try {
