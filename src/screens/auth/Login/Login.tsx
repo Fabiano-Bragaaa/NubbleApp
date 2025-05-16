@@ -40,7 +40,7 @@ export function Login({navigation}: AuthScreenProps<'Login'>) {
   }
 
   function navigateToForgetMyPassword() {
-    navigation.navigate('ForgetPassword');
+    navigation.navigate('ForgotPassword');
   }
 
   return (

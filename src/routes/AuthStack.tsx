@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 const {Screen, Navigator} = createNativeStackNavigator<AuthStackParamList>();
 
 import {IconProps} from '@components';
-import {ForgetPassword, Login, SignUp, Success} from '@screens';
+import {ForgotPassword, Login, SignUp, Success} from '@screens';
 
 export type AuthStackParamList = {
   Login: undefined;
@@ -13,7 +13,7 @@ export type AuthStackParamList = {
     description: string;
     icon: Pick<IconProps, 'name' | 'color'>;
   };
-  ForgetPassword: undefined;
+  ForgotPassword: undefined;
 };
 
 export function AuthStack() {
@@ -23,7 +23,7 @@ export function AuthStack() {
       <Screen name="Login" component={Login} />
       <Screen name="SignUp" component={SignUp} />
       <Screen name="Success" component={Success} />
-      <Screen name="ForgetPassword" component={ForgetPassword} />
+      <Screen name="ForgotPassword" component={ForgotPassword} />
     </Navigator>
   );
 }

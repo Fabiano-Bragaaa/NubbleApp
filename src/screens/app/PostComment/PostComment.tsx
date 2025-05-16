@@ -7,6 +7,7 @@ import {
 } from '@domain';
 
 import {Box, Screen} from '@components';
+import {useAppSafeArea} from '@hooks';
 import {AppScreenProps} from '@routes';
 
 import {
@@ -21,6 +22,7 @@ export function PostComment({route}: AppScreenProps<'PostComment'>) {
   const {list, fetchNextPage, hasNextPage} = usePostCommentList(postId);
 
   const {id} = useUser();
+  const {bottom} = useAppSafeArea();
 
   function renderItem({item}: ListRenderItemInfo<PostCommentProps>) {
     return (
@@ -37,9 +39,11 @@ export function PostComment({route}: AppScreenProps<'PostComment'>) {
     <Screen title="Comentários" canGoBack flex={1}>
       <Box flex={1} justifyContent="space-between">
         <FlatList
+          contentContainerStyle={{paddingBottom: bottom}}
           showsVerticalScrollIndicator={false}
           data={list}
           renderItem={renderItem}
+          removeClippedSubviews={false}
           ListFooterComponent={
             <PostCommentBottom
               fetchNextPage={fetchNextPage}
