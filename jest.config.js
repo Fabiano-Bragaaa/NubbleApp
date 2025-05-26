@@ -3,6 +3,8 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   collectCoverageFrom: ['src/{components,utils}/**/*.{js,jsx,ts,tsx}'],
   coveragePathIgnorePatterns: ['/node_modules/', 'index'],
+  moduleDirectories: ['node_modules', './src/test'],
+
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|@react-native|@react-navigation|@react-native-community|@shopify|@react-native-picker|react-native)',
   ],
