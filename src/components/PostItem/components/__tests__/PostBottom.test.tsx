@@ -3,7 +3,7 @@ import {fireEvent, render, screen} from 'test-utils';
 
 import {PostBottom} from '../PostBottom';
 
-import { mockedPost } from './mockedData/mockedPost';
+import {mockedPost} from './mockedData/mockedPost';
 
 const mockedNavigate = jest.fn();
 jest.mock('@react-navigation/native', () => {
