@@ -6,7 +6,7 @@ import {usePaginatedList} from '../usePaginatedList';
 const page1 = ['item1', 'item2', 'item3'];
 const page2 = ['item4', 'item5', 'item6'];
 
-function getList(page: number): Promise<Page<string>> {
+async function getList(page: number): Promise<Page<string>> {
   const data = page === 1 ? page1 : page2;
   const meta: MetaDataPage = {
     currentPage: page,
@@ -26,6 +26,12 @@ describe('usePaginatedList', () => {
     const {result} = renderHook(() => usePaginatedList(['key'], getList));
 
     await waitFor(() => expect(result.current.list).toStrictEqual(page1));
+
+    result.current.fetchNextPage();
+
+    await waitFor(() =>
+      expect(result.current.list).toStrictEqual([...page1, ...page2]),
+    );
 
     result.current.fetchNextPage();
 
