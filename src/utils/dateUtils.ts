@@ -6,6 +6,9 @@ function formatRelative(dateISO: string): string {
 
   const diffInSeconds = differenceInSeconds(now, date);
 
+  if (diffInSeconds < 0) {
+    return format(date, 'dd/MM/yyyy');
+  }
   if (diffInSeconds < 60) {
     return `${diffInSeconds} s`;
   }
@@ -32,7 +35,7 @@ function formatRelative(dateISO: string): string {
 
   const diffInMonths = Math.floor(diffInDays / 30);
   if (diffInMonths < 12) {
-    return `${diffInMonths} m`;
+    return `${diffInMonths} mes`;
   }
 
   return format(date, 'dd/MM/yyyy');
