@@ -6,6 +6,7 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|@react-native|@react-navigation)',
   ],
+  moduleDirectories:['node_modules', './src/test' ],
   testPathIgnorePatterns: ['/node_modules/', '/android/', '/ios/'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
