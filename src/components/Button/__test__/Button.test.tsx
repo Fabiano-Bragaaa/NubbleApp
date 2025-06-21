@@ -1,4 +1,8 @@
+import {StyleSheet} from 'react-native';
+
 import {fireEvent, render, screen} from 'test-utils';
+
+import {theme} from '@theme';
 
 import {Button, ButtonProps} from '../Button';
 
@@ -32,5 +36,13 @@ describe('<Button />', () => {
     fireEvent.press(titleElement);
 
     expect(mockedOnPress).not.toHaveBeenCalled();
+  });
+
+  test('the title should be gray if button is disabled', () => {
+    const {titleElement} = renderComponent({disabled: true});
+
+    const titleStyle = StyleSheet.flatten(titleElement.props.style);
+
+    expect(titleStyle.color).toEqual(theme.colors.gray2);
   });
 });
