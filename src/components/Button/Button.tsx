@@ -26,6 +26,7 @@ export function Button({
   const buttonPreset = buttonPresets[preset][disabled ? 'disabled' : 'default'];
   return (
     <TouchableOpacityBox
+      testID="button"
       disabled={disabled || loading}
       paddingHorizontal="s20"
       alignItems="center"
@@ -35,7 +36,7 @@ export function Button({
       {...buttonPreset.container}
       {...touchableOpacityBoxProps}>
       {loading ? (
-        <ActivityIndicator color={buttonPreset.content} />
+        <ActivityIndicator  color={buttonPreset.content} />
       ) : (
         <Text preset="paragraphMedium" bold color={buttonPreset.content}>
           {title}

@@ -12,5 +12,5 @@ type Props = Omit<ActivityIndicatorProps, 'color'> & {
 
 export function ActivityIndicator({color = 'primary', ...props}: Props) {
   const {colors} = useAppTheme();
-  return <RNActivityIndicator color={colors[color]} {...props} />;
+  return <RNActivityIndicator testID="activity-indicator" color={colors[color]} {...props} />;
 }
