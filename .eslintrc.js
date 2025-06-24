@@ -1,7 +1,11 @@
 module.exports = {
   root: true,
-  extends: ['@react-native', 'plugin:@tanstack/query/recommended'],
-  plugins: ['import', '@tanstack/query'],
+  extends: [
+    '@react-native',
+    'plugin:@tanstack/query/recommended',
+    'plugin:prettier/recommended',
+  ],
+  plugins: ['import', '@tanstack/query', 'prettier'],
   rules: {
     '@typescript-eslint/no-unused-vars': 1,
     'react/react-in-jsx-scope': 'off',
