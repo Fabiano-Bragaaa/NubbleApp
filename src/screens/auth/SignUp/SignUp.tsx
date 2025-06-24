@@ -103,7 +103,7 @@ export function SignUp({}: AuthScreenProps<'SignUp'>) {
         errorMessage={emailValidation.errorMessage}
         placeholder="Digite seu e-mail"
         boxProps={{mb: 's20'}}
-         RightComponent={
+        RightComponent={
           emailValidation.isFetching ? (
             <ActivityIndicator size="small" />
           ) : undefined
@@ -120,7 +120,11 @@ export function SignUp({}: AuthScreenProps<'SignUp'>) {
 
       <Button
         onPress={handleSubmit(submitForm)}
-        disabled={!formState.isValid || usernameValidation.notReady || emailValidation.notReady}
+        disabled={
+          !formState.isValid ||
+          usernameValidation.notReady ||
+          emailValidation.notReady
+        }
         title="Criar minha conta"
         loading={isLoading}
       />

@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import { ReactTestInstance } from 'react-test-renderer';
+import {ReactTestInstance} from 'react-test-renderer';
 import {fireEvent, render, screen} from 'test-utils';
 
 import {theme} from '@theme';
@@ -14,14 +14,16 @@ function renderComponent(props?: Partial<ButtonProps>) {
   const buttonElement = screen.getByTestId('button');
   const loadingElement = screen.queryByTestId('activity-indicator');
 
-  return {titleElement, loadingElement, buttonElement };
+  return {titleElement, loadingElement, buttonElement};
 }
 
 describe('<Button />', () => {
   it('calls the onPress function when is pressed', () => {
     const mockedOnPress = jest.fn();
 
-    const {titleElement, loadingElement} = renderComponent({onPress: mockedOnPress});
+    const {titleElement, loadingElement} = renderComponent({
+      onPress: mockedOnPress,
+    });
 
     fireEvent.press(titleElement as ReactTestInstance);
 
@@ -43,7 +45,7 @@ describe('<Button />', () => {
   });
 
   test('the title should be gray if button is disabled', () => {
-    const {titleElement } = renderComponent({disabled: true});
+    const {titleElement} = renderComponent({disabled: true});
 
     const titleStyle = StyleSheet.flatten(titleElement?.props.style);
 
@@ -52,26 +54,28 @@ describe('<Button />', () => {
 
   describe('when button is loading', () => {
     it('shows activity indicator', () => {
-      const { loadingElement } = renderComponent({loading: true});
+      const {loadingElement} = renderComponent({loading: true});
 
       expect(loadingElement).toBeTruthy();
     });
 
     it('hides button title', () => {
-      const {  titleElement } = renderComponent({loading: true});
+      const {titleElement} = renderComponent({loading: true});
 
       expect(titleElement).toBeFalsy();
     });
 
     it('disabels onPress functions', () => {
-        const mockedOnPress = jest.fn();
+      const mockedOnPress = jest.fn();
 
-      const { buttonElement } = renderComponent({loading: true, onPress: mockedOnPress});
+      const {buttonElement} = renderComponent({
+        loading: true,
+        onPress: mockedOnPress,
+      });
 
       fireEvent.press(buttonElement);
 
       expect(mockedOnPress).not.toHaveBeenCalled();
     });
   });
-
 });
