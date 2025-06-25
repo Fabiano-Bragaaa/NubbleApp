@@ -14,4 +14,5 @@ module.exports = {
     '/mockedData/*',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  setupFiles: ['<rootDir>/src/test/jestSetup.ts'],
 };
