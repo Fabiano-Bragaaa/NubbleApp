@@ -41,7 +41,7 @@ function getCommentText(commentCount: number): string | null {
   if (commentCount === 0) {
     return null;
   } else if (commentCount === 1) {
-    return 'ver comenário';
+    return 'ver comentário';
   } else {
     return `ver ${commentCount} comentários`;
   }
