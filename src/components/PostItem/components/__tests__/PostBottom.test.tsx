@@ -1,22 +1,8 @@
-import {Post} from '@domain';
 import {fireEvent, render, screen} from 'test-utils';
 
 import {PostBottom} from '../PostBottom';
 
-const mockedPost: Post = {
-  id: 1,
-  imageURL: 'fake-url',
-  commentCount: 3,
-  favoriteCount: 2,
-  reactionCount: 3,
-  text: 'this is the text (post description)',
-  author: {
-    id: 2,
-    name: 'Fabiano',
-    profileURL: 'https://example.com',
-    userName: 'fabiano',
-  },
-};
+import {mockedPost} from './mockedData/mockedPost';
 
 const mockedNavigate = jest.fn();
 
