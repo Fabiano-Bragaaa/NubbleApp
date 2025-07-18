@@ -32,5 +32,11 @@ describe('usePaginatedList', () => {
     await waitFor(() =>
       expect(result.current.list).toStrictEqual([...page1, ...page2]),
     );
+
+    result.current.fetchNextPage();
+
+    await waitFor(() =>
+      expect(result.current.list).toStrictEqual([...page1, ...page2]),
+    );
   });
 });
