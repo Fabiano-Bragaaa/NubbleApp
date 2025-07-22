@@ -7,7 +7,7 @@ import {Box, ProfileAvatar, Text} from '@components';
 
 interface Props {
   postComment: PostComment;
-  userId: number;
+  userId: number | null;
   postAuthorId: number;
   postId: number;
 }
