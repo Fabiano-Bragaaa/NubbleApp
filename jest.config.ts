@@ -19,6 +19,9 @@ const config: Config = {
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   setupFiles: ['<rootDir>/src/test/jestSetup.ts'],
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
 };
 
 export default config;
