@@ -1,5 +1,5 @@
 import {server} from '@test';
-import {renderScreen, screen} from 'test-utils';
+import {fireEvent, renderScreen, screen} from 'test-utils';
 
 import {PostComment} from '../../PostComment';
 
@@ -23,9 +23,21 @@ describe('integration: PostComment', () => {
         }}
       />,
     );
-
     const comment = await screen.findByText(/comentário aleatório/i);
 
     expect(comment).toBeTruthy();
+    const inputText = screen.getByPlaceholderText(/Adicione um comentário/i);
+
+    fireEvent.changeText(inputText, 'novo comentario');
+
+    fireEvent.press(screen.getByText(/enviar/i));
+
+    const newComment = await screen.findByText(/novo comentario/i);
+
+    expect(newComment).toBeTruthy();
+
+    const comments = await screen.findAllByTestId('post-comment-id');
+
+    expect(comments.length).toBe(2);
   });
 });
