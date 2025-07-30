@@ -1,4 +1,5 @@
-import {server} from '@test';
+import {authCredentialsStorage} from '@services';
+import {server, mockedPostComment} from '@test';
 import {fireEvent, renderScreen, screen} from 'test-utils';
 
 import {PostComment} from '../../PostComment';
@@ -9,7 +10,7 @@ afterEach(() => server.restoreHandlers());
 
 afterAll(() => server.close());
 describe('integration: PostComment', () => {
-  test('When ADDING a comment the list is automatically updated', async () => {
+  test('When ADDING a comment, the list is automatically updated', async () => {
     renderScreen(
       <PostComment
         navigation={{} as any}
@@ -39,5 +40,25 @@ describe('integration: PostComment', () => {
     const comments = await screen.findAllByTestId('post-comment-id');
 
     expect(comments.length).toBe(2);
+  });
+
+  test('When DELETING a comment, the list is automatically updated and a toast message is displayed', async () => {
+    jest
+      .spyOn(authCredentialsStorage, 'get')
+      .mockResolvedValue(mockedPostComment.mateusAuthCredentials);
+
+    renderScreen(
+      <PostComment
+        navigation={{} as any}
+        route={{
+          name: 'PostComment',
+          key: 'PostComment',
+          params: {
+            postId: 1,
+            postAuthor: 1,
+          },
+        }}
+      />,
+    );
   });
 });
