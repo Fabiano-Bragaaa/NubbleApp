@@ -3,7 +3,9 @@ import type {Config} from 'jest';
 const config: Config = {
   preset: 'react-native',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  collectCoverageFrom: ['src/{components,utils,domain}/**/*.{js,jsx,ts,tsx}'],
+  collectCoverageFrom: [
+    'src/{components,utils,domain,screen}/**/*.{js,jsx,ts,tsx}',
+  ],
   coveragePathIgnorePatterns: ['/node_modules/', 'index'],
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|@react-native|@react-navigation)',
@@ -17,6 +19,9 @@ const config: Config = {
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   setupFiles: ['<rootDir>/src/test/jestSetup.ts'],
+  testEnvironmentOptions: {
+    customExportConditions: [''],
+  },
 };
 
 export default config;
