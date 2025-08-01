@@ -3,15 +3,20 @@ import {Alert, AlertButton} from 'react-native';
 import {authCredentialsStorage} from '@services';
 import {server, mockedPostComment, resetInMemoryResponse} from '@test';
 import {
+  act,
   fireEvent,
   renderScreen,
   screen,
+  waitFor,
   waitForElementToBeRemoved,
 } from 'test-utils';
 
 import {PostComment} from '../../PostComment';
 
-beforeAll(() => server.listen());
+beforeAll(() => {
+  server.listen();
+  jest.useFakeTimers();
+});
 
 afterEach(() => {
   server.restoreHandlers();
@@ -21,6 +26,7 @@ afterEach(() => {
 afterAll(() => {
   server.close();
   jest.resetAllMocks();
+  jest.useRealTimers();
 });
 describe('integration: PostComment', () => {
   test('When ADDING a comment, the list is automatically updated', async () => {
@@ -108,5 +114,11 @@ describe('integration: PostComment', () => {
     const comments = await screen.findAllByTestId('post-comment-id');
 
     expect(comments.length).toBe(1);
+
+    await screen.findByTestId('toast-message');
+
+    act(() => jest.runAllTimers());
+
+    expect(screen.queryByTestId('toast-message')).toBeNull();
   });
 });
