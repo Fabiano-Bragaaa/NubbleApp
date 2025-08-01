@@ -1,6 +1,5 @@
 import {PageAPI} from '@api';
-import {AuthCredentials, PostCommentAPI, UserApi} from '@domain';
-import {userAdapter} from 'src/domain/User/userAdapter';
+import {AuthCredentials, PostCommentAPI, UserApi, userAdapter} from '@domain';
 
 const POST_ID = 1;
 
