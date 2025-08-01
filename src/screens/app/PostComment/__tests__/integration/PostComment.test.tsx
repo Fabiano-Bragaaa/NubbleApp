@@ -1,14 +1,27 @@
+import {Alert, AlertButton} from 'react-native';
+
 import {authCredentialsStorage} from '@services';
-import {server, mockedPostComment} from '@test';
-import {fireEvent, renderScreen, screen} from 'test-utils';
+import {server, mockedPostComment, resetInMemoryResponse} from '@test';
+import {
+  fireEvent,
+  renderScreen,
+  screen,
+  waitForElementToBeRemoved,
+} from 'test-utils';
 
 import {PostComment} from '../../PostComment';
 
 beforeAll(() => server.listen());
 
-afterEach(() => server.restoreHandlers());
+afterEach(() => {
+  server.restoreHandlers();
+  resetInMemoryResponse();
+});
 
-afterAll(() => server.close());
+afterAll(() => {
+  server.close();
+  jest.resetAllMocks();
+});
 describe('integration: PostComment', () => {
   test('When ADDING a comment, the list is automatically updated', async () => {
     renderScreen(
@@ -39,13 +52,23 @@ describe('integration: PostComment', () => {
 
     const comments = await screen.findAllByTestId('post-comment-id');
 
-    expect(comments.length).toBe(2);
+    expect(comments.length).toBe(3);
   });
 
   test('When DELETING a comment, the list is automatically updated and a toast message is displayed', async () => {
     jest
       .spyOn(authCredentialsStorage, 'get')
       .mockResolvedValue(mockedPostComment.mateusAuthCredentials);
+
+    let mockedConfirm: AlertButton['onPress'];
+
+    const mockedAlert = jest
+      .spyOn(Alert, 'alert')
+      .mockImplementation((title, message, buttons) => {
+        if (buttons && buttons[0]) {
+          mockedConfirm = buttons[0].onPress;
+        }
+      });
 
     renderScreen(
       <PostComment
@@ -60,5 +83,30 @@ describe('integration: PostComment', () => {
         }}
       />,
     );
+
+    const comment = await screen.findByText(
+      mockedPostComment.mateusPostCommentAPI.message,
+      {
+        exact: false,
+      },
+    );
+
+    expect(comment).toBeTruthy();
+
+    fireEvent(comment, 'longPress');
+
+    expect(mockedAlert).toHaveBeenCalled();
+
+    mockedConfirm && mockedConfirm();
+
+    await waitForElementToBeRemoved(() =>
+      screen.queryByText(mockedPostComment.mateusPostCommentAPI.message, {
+        exact: false,
+      }),
+    );
+
+    const comments = await screen.findAllByTestId('post-comment-id');
+
+    expect(comments.length).toBe(1);
   });
 });
