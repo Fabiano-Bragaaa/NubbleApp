@@ -1,17 +1,23 @@
 import {SimpleLogo} from '@brand';
+import {useNavigation} from '@react-navigation/native';
 
 import {Box, BoxProps, Icon} from '@components';
 import {useAppSafeArea} from '@hooks';
 
 export function HomeHeader() {
   const {top} = useAppSafeArea();
+
+  const {navigate} = useNavigation();
+
+  function navigateToSearch() {
+    navigate('Search');
+  }
+
   return (
     <Box {...$wrapper} style={{paddingTop: top}}>
-      {/* <Box bg="carrotSecondary" height={16} width={70} />
-       */}
       <SimpleLogo width={70} />
       <Box flexDirection="row" gap="s24">
-        <Icon name="search" />
+        <Icon onPress={navigateToSearch} name="search" />
         <Icon name="bell" />
         <Icon name="comment" />
       </Box>
