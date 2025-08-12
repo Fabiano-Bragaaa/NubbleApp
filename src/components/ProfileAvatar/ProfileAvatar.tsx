@@ -1,6 +1,6 @@
 import {Image} from 'react-native';
 
-interface ProfileProps {
+export interface ProfileProps {
   imageUrl: string;
 
   /**@default 32 */
