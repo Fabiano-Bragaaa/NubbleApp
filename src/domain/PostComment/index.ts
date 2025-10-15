@@ -3,4 +3,4 @@ export * from './useCases/usePostCommentRemove';
 export * from './useCases/usePostCommentCreate';
 export * from './postCommentTypes';
 export * from './postCommentService';
-export {POST_COMMENT_PATH} from './postCommentApi';
+export {POST_COMMENT_PATH} from './postCommentAPI';
