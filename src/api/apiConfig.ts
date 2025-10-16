@@ -1,7 +1,7 @@
 import {AuthCredentials, authService} from '@domain';
 import axios from 'axios';
 
-export const BASE_URL = 'http://172.25.240.1:3333/';
+export const BASE_URL = 'http://localhost:3333/';
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -38,8 +38,6 @@ export function registerInterceptor({
           authCredentials?.refreshToken,
         );
         saveCredentials(newAuthCredentials);
-
-        console.log('refresh token success', newAuthCredentials);
 
         failedRequest.headers.Authorization = `Bearer ${newAuthCredentials.token}`;
 
