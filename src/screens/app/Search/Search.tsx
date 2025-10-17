@@ -18,7 +18,13 @@ export function Search({}: AppScreenProps<'Search'>) {
   const {list} = useUserSearch(debouncedSearch);
 
   function renderItem({item}: ListRenderItemInfo<User>) {
-    return <ProfileUser user={item} onPress={() => addUser(item)} />;
+    return (
+      <ProfileUser
+        user={item}
+        onPress={() => addUser(item)}
+        avatarProps={{size: 48}}
+      />
+    );
   }
 
   return (
