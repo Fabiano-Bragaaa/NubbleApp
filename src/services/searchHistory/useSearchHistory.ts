@@ -3,9 +3,9 @@ import {persist} from 'zustand/middleware';
 
 import {storage} from '../storage';
 
-import {SearchHistorySearch} from './searchHistoryType';
+import {SearchHistoryService} from './searchHistoryType';
 
-const useSearchHistoryStore = create<SearchHistorySearch>()(
+const useSearchHistoryStore = create<SearchHistoryService>()(
   persist(
     (set, get) => ({
       userList: [],
@@ -19,24 +19,33 @@ const useSearchHistoryStore = create<SearchHistorySearch>()(
         const updatedList = userList.filter(user => user.id !== userId);
         set({userList: updatedList});
       },
-      clearUserList: () => set({userList: []}),
+      clearUserList: () => {
+        set({userList: []});
+      },
     }),
-    {name: '@SearchHistory', storage},
+    {
+      name: '@SearchHistory',
+      storage: storage,
+    },
   ),
 );
 
-export function useSearchHistory(): SearchHistorySearch['userList'] {
+export function useSearchHistory(): SearchHistoryService['userList'] {
   const userList = useSearchHistoryStore(state => state.userList);
   return userList;
 }
 
 export function useSearchHistoryService(): Omit<
-  SearchHistorySearch,
+  SearchHistoryService,
   'userList'
 > {
-  return useSearchHistoryStore(state => ({
-    addUser: state.addUser,
-    removeUser: state.removeUser,
-    clearUserList: state.clearUserList,
-  }));
+  const addUser = useSearchHistoryStore(state => state.addUser);
+  const removeUser = useSearchHistoryStore(state => state.removeUser);
+  const clearUserList = useSearchHistoryStore(state => state.clearUserList);
+
+  return {
+    addUser,
+    removeUser,
+    clearUserList,
+  };
 }

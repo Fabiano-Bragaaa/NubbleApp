@@ -3,7 +3,7 @@ import {FlatList, ListRenderItemInfo} from 'react-native';
 import {User} from '@domain';
 import {useSearchHistory} from '@services';
 
-import {ProfileUser, Text} from '@components';
+import {Box, ProfileUser, Text} from '@components';
 
 export function SearchHistory() {
   const userList = useSearchHistory();
@@ -12,11 +12,15 @@ export function SearchHistory() {
   }
 
   return (
-    <FlatList
-      ListHeaderComponent={<Text preset="headingMedium">Buscas recentes</Text>}
-      data={userList}
-      renderItem={renderItem}
-      keyExtractor={item => item.id.toString()}
-    />
+    <Box>
+      <FlatList
+        ListHeaderComponent={
+          <Text preset="headingMedium">Buscas recentes</Text>
+        }
+        data={userList}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+      />
+    </Box>
   );
 }

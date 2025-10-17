@@ -32,7 +32,7 @@ export function Search({}: AppScreenProps<'Search'>) {
           onChangeText={setSerch}
         />
       }>
-      {search.length > 0 ? (
+      {search.length === 0 ? (
         <SearchHistory />
       ) : (
         <FlatList

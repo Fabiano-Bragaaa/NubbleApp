@@ -1,6 +1,6 @@
 import {User} from '@domain';
 
-export type SearchHistorySearch = {
+export type SearchHistoryService = {
   userList: User[];
   addUser: (user: User) => void;
   removeUser: (userId: User['id']) => void;
