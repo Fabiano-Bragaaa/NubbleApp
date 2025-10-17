@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {FlatList, ListRenderItemInfo} from 'react-native';
 
 import {User, useUserSearch} from '@domain';
+import {useSearchHistoryService} from '@services';
 
 import {Icon, ProfileUser, Screen, TextInput} from '@components';
 import {useDebounce} from '@hooks';
@@ -10,6 +11,7 @@ import {AppScreenProps} from '@routes';
 export function Search({}: AppScreenProps<'Search'>) {
   const [search, setSerch] = useState('');
   const debouncedSearch = useDebounce(search);
+  const {addUser} = useSearchHistoryService();
 
   const {list} = useUserSearch(debouncedSearch);
 
