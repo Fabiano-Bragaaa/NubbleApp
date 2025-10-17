@@ -1,27 +1,44 @@
-import {Pressable} from 'react-native';
+import {GestureResponderEvent} from 'react-native';
 
 import {User} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
-import {Box, ProfileAvatar, Text} from '@components';
+import {
+  PressableBox,
+  PressableBoxProps,
+  ProfileAvatar,
+  Text,
+} from '@components';
 
-type ProfileUserProps = {user: Pick<User, 'id' | 'profileUrl' | 'username'>};
+type ProfileUserProps = {
+  user: Pick<User, 'id' | 'profileUrl' | 'username'>;
+} & PressableBoxProps;
 
-export function ProfileUser({user}: ProfileUserProps) {
+export function ProfileUser({
+  user,
+  onPress,
+  ...presableBoxProps
+}: ProfileUserProps) {
   const {navigate} = useNavigation();
 
-  function navigateToProfile() {
+  function handleOnPress(event: GestureResponderEvent) {
+    if (onPress) {
+      onPress(event);
+    }
     navigate('Profile', {userId: user.id});
   }
 
   return (
-    <Pressable onPress={navigateToProfile}>
-      <Box flexDirection="row" alignItems="center" mb="s16">
-        <ProfileAvatar imageUrl={user.profileUrl} />
-        <Text preset="paragraphMedium" semiBold ml="s12">
-          {user.username}
-        </Text>
-      </Box>
-    </Pressable>
+    <PressableBox
+      onPress={handleOnPress}
+      flexDirection="row"
+      alignItems="center"
+      mb="s16"
+      {...presableBoxProps}>
+      <ProfileAvatar imageUrl={user.profileUrl} />
+      <Text preset="paragraphMedium" semiBold ml="s12">
+        {user.username}
+      </Text>
+    </PressableBox>
   );
 }

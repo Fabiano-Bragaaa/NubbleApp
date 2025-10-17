@@ -8,6 +8,8 @@ import {Icon, ProfileUser, Screen, TextInput} from '@components';
 import {useDebounce} from '@hooks';
 import {AppScreenProps} from '@routes';
 
+import {SearchHistory} from './components/SearchHistory';
+
 export function Search({}: AppScreenProps<'Search'>) {
   const [search, setSerch] = useState('');
   const debouncedSearch = useDebounce(search);
@@ -30,11 +32,15 @@ export function Search({}: AppScreenProps<'Search'>) {
           onChangeText={setSerch}
         />
       }>
-      <FlatList
-        data={list}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-      />
+      {search.length > 0 ? (
+        <SearchHistory />
+      ) : (
+        <FlatList
+          data={list}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+        />
+      )}
     </Screen>
   );
 }
