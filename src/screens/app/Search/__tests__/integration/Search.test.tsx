@@ -29,9 +29,10 @@ describe('Integration: Search', () => {
     //1) Render the screen
     renderScreen(<AppStack initialRouteName="Search" />);
 
+    //2) Type 'mar' in the input
+
     const inputElement = screen.getByPlaceholderText(/digite sua busca/i);
 
-    //2) Type 'mar' in the input
     fireEvent.changeText(inputElement, 'mar');
     act(() => jest.runAllTimers());
 
@@ -74,10 +75,17 @@ describe('Integration: Search', () => {
 
     //11) the user 2 (not pressed) should not be in the search history
     const user2InSearchHistory = screen.queryByText(userMocked.user2.username);
-    expect(user2InSearchHistory).toBeNull();
+    expect(user2InSearchHistory).toBeFalsy();
 
     //12) press the trash icon of the first user in the search history
 
+    const trashIcon = await screen.findByTestId('trash');
+    fireEvent.press(trashIcon);
+
     //13) the first user should not be in the search history
+    const user1InSearchHistoryAgain = screen.queryByText(
+      userMocked.user1.username,
+    );
+    expect(user1InSearchHistoryAgain).toBeFalsy();
   });
 });

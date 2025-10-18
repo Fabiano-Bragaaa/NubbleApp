@@ -4,7 +4,7 @@ const config: Config = {
   preset: 'react-native',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   collectCoverageFrom: [
-    'src/{components,utils,domain,screen}/**/*.{js,jsx,ts,tsx}',
+    'src/{components,utils,domain,screens}/**/*.{js,jsx,ts,tsx}',
   ],
   coveragePathIgnorePatterns: ['/node_modules/', 'index'],
   transformIgnorePatterns: [
