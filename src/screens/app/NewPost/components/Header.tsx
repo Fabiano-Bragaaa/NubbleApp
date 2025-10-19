@@ -19,7 +19,7 @@ export function NewPostHeader({imageUri, imageSize}: Props) {
           },
           styles.imageBackground,
         ]}>
-        <Button title="escolher essa" mb="s24" />
+        <Button title="escolher essa" mb="s24" preset="ghost" />
       </ImageBackground>
       <Box {...$optionsStyle}>
         <Text preset="headingSmall">Sua galeria</Text>
