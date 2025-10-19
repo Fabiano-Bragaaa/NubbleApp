@@ -13,6 +13,10 @@ export function ScreenHeader({canGoBack, title, HeaderComponent}: Props) {
 
   const showBackLabel = !title && !HeaderComponent;
 
+  if (!canGoBack && !title && !HeaderComponent) {
+    return null;
+  }
+
   return (
     <Box
       flexDirection="row"
