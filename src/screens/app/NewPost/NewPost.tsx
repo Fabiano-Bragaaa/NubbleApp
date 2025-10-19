@@ -1,22 +1,36 @@
-import {Image} from 'react-native';
+import {Dimensions, FlatList, Image, ListRenderItemInfo} from 'react-native';
 
 import {useCameraRoll} from '@services';
 
-import {Screen, Text} from '@components';
+import {Screen} from '@components';
 import {AppTabScreenProps} from '@routes';
 
 export function NewPost({navigation}: AppTabScreenProps<'NewPost'>) {
   const {list} = useCameraRoll();
+
+  const screenWidth = Dimensions.get('screen').width;
+
+  const numberOfColumns = 4;
+
+  const itemWidth = screenWidth / numberOfColumns;
+
+  function renderItem({item}: ListRenderItemInfo<string>) {
+    return (
+      <Image
+        source={{uri: item}}
+        style={{width: itemWidth, height: itemWidth}}
+      />
+    );
+  }
+
   return (
-    <Screen>
-      <Text preset="headingLarge">NewPost</Text>
-      {list.map(item => (
-        <Image
-          key={item}
-          source={{uri: item}}
-          style={{width: 100, height: 100}}
-        />
-      ))}
+    <Screen canGoBack title="Novo post" scrollable noPaddingHorizontal>
+      <FlatList
+        data={list}
+        renderItem={renderItem}
+        keyExtractor={item => item}
+        numColumns={numberOfColumns}
+      />
     </Screen>
   );
 }
