@@ -11,3 +11,4 @@ export * from './app/Settings/Settings';
 export * from './app/PostComment/PostComment';
 export * from './app/Profile/Profile';
 export * from './app/Search/Search';
+export * from './app/PublishPost/PublishPost';

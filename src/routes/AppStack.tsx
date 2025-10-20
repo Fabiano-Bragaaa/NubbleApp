@@ -1,7 +1,7 @@
 import {NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {PostComment, Profile, Search, Settings} from '@screens';
+import {PostComment, Profile, PublishPost, Search, Settings} from '@screens';
 
 import {AppTabBottomTabParamList, AppTabNavigator} from './AppTabNavigator';
 
@@ -16,6 +16,9 @@ export type AppStackParamList = {
     userId: number;
   };
   Search: undefined;
+  PublishPost: {
+    imageUri: string;
+  };
 };
 
 const {Navigator, Screen} = createNativeStackNavigator<AppStackParamList>();
@@ -36,6 +39,7 @@ export function AppStack({
       <Screen name="PostComment" component={PostComment} />
       <Screen name="Profile" component={Profile} />
       <Screen name="Search" component={Search} />
+      <Screen name="PublishPost" component={PublishPost} />
     </Navigator>
   );
 }

@@ -17,6 +17,7 @@ export type TextInputProps = RNTextInputProps & {
   RightComponent?: ReactNode;
   LeftComponent?: ReactNode;
   boxProps?: BoxProps;
+  containerProps?: BoxProps;
 };
 
 export function TextInput({
@@ -25,6 +26,7 @@ export function TextInput({
   RightComponent,
   LeftComponent,
   boxProps,
+  containerProps,
   ...rNTextInputProps
 }: TextInputProps) {
   const {colors} = useAppTheme();
@@ -51,7 +53,7 @@ export function TextInput({
           </Text>
         )}
 
-        <Box {...$inputContainer}>
+        <Box {...$inputContainer} {...containerProps}>
           {LeftComponent && (
             <Box justifyContent="center" mr="s16">
               {LeftComponent}

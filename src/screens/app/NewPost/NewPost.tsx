@@ -46,6 +46,7 @@ export function NewPost({navigation}: AppTabScreenProps<'NewPost'>) {
         onEndReached={fetchNextPage}
         onEndReachedThreshold={0.1}
         numColumns={numberOfColumns}
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <NewPostHeader imageUri={selectedImage} imageSize={screenWidth} />
         }
