@@ -12,16 +12,14 @@ async function check(name: PermissionName): Promise<PermissionStatus> {
     const result = await PermissionsAndroid.check(permission);
     if (result) {
       return 'granted';
-    } else {
-      return 'denied';
     }
+    return 'denied';
   }
 
   return 'unavailable';
 }
 
 async function request(name: PermissionName): Promise<PermissionStatus> {
-  console.log('permission android');
   const permission = mapNameToPermission(name);
   if (permission) {
     const result = await PermissionsAndroid.request(permission);
