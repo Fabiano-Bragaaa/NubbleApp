@@ -21,6 +21,7 @@ async function check(name: PermissionName): Promise<PermissionStatus> {
 }
 
 async function request(name: PermissionName): Promise<PermissionStatus> {
+  console.log('permission android');
   const permission = mapNameToPermission(name);
   if (permission) {
     const result = await PermissionsAndroid.request(permission);
