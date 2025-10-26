@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
-import {Box, BoxProps, Icon} from '@components';
+import {Box, BoxProps, Icon, PermissionManager} from '@components';
 import {useAppSafeArea} from '@hooks';
 import {AppScreenProps} from '@routes';
 
@@ -18,29 +18,36 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
   }
 
   return (
-    <Box flex={1}>
-      <Box backgroundColor="grayWhite" style={StyleSheet.absoluteFillObject} />
-      <Box flex={1} justifyContent="space-between">
-        <Box {...$controlAreaTop} style={{paddingTop: top}}>
-          <Icon
-            size={20}
-            color="grayWhite"
-            name="arrowLeft"
-            onPress={navigation.goBack}
-          />
-          <Icon
-            size={20}
-            color="grayWhite"
-            name={flashOn ? 'flashOn' : 'flashOff'}
-            onPress={toggleFlash}
-          />
-          <Box width={20} />
-        </Box>
-        <Box {...$controlAreaBottom}>
-          <Icon name="cameraClick" size={80} color="grayWhite" />
+    <PermissionManager
+      permissionName="camera"
+      description="Permita o nubble acessar a câmera">
+      <Box flex={1}>
+        <Box
+          backgroundColor="grayWhite"
+          style={StyleSheet.absoluteFillObject}
+        />
+        <Box flex={1} justifyContent="space-between">
+          <Box {...$controlAreaTop} style={{paddingTop: top}}>
+            <Icon
+              size={20}
+              color="grayWhite"
+              name="arrowLeft"
+              onPress={navigation.goBack}
+            />
+            <Icon
+              size={20}
+              color="grayWhite"
+              name={flashOn ? 'flashOn' : 'flashOff'}
+              onPress={toggleFlash}
+            />
+            <Box width={20} />
+          </Box>
+          <Box {...$controlAreaBottom}>
+            <Icon name="cameraClick" size={80} color="grayWhite" />
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </PermissionManager>
   );
 }
 
