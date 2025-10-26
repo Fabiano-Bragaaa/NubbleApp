@@ -19,6 +19,10 @@ export function NewPostHeader({imageUri, imageSize}: Props) {
     }
   }
 
+  function navigateToCamera() {
+    navigation.navigate('Camera');
+  }
+
   return (
     <Box>
       <ImageBackground
@@ -41,7 +45,7 @@ export function NewPostHeader({imageUri, imageSize}: Props) {
       </ImageBackground>
       <Box {...$optionsStyle}>
         <Text preset="headingSmall">Sua galeria</Text>
-        <Icon name="camera" />
+        <Icon name="camera" onPress={navigateToCamera} />
       </Box>
     </Box>
   );
