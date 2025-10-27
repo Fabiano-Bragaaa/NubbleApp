@@ -1,8 +1,14 @@
 import {useState} from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
+import {useIsFocused} from '@react-navigation/native';
+import {
+  useCameraDevice,
+  Camera as VisionCamera,
+} from 'react-native-vision-camera';
+
 import {Box, BoxProps, Icon, PermissionManager} from '@components';
-import {useAppSafeArea} from '@hooks';
+import {useAppSafeArea, useAppState} from '@hooks';
 import {AppScreenProps} from '@routes';
 
 const CAMERA_VIEW = Dimensions.get('screen').width;
@@ -13,6 +19,12 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
   const {top} = useAppSafeArea();
   const [flashOn, setFlashOn] = useState(false);
 
+  const isFocused = useIsFocused();
+  const appState = useAppState();
+  const isActive = isFocused && appState === 'active';
+
+  const camera = useCameraDevice('back');
+
   function toggleFlash() {
     setFlashOn(prev => !prev);
   }
@@ -22,10 +34,13 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
       permissionName="camera"
       description="Permita o nubble acessar a câmera">
       <Box flex={1}>
-        <Box
-          backgroundColor="grayWhite"
-          style={StyleSheet.absoluteFillObject}
-        />
+        {camera && (
+          <VisionCamera
+            device={camera}
+            isActive={isActive}
+            style={StyleSheet.absoluteFillObject}
+          />
+        )}
         <Box flex={1} justifyContent="space-between">
           <Box {...$controlAreaTop} style={{paddingTop: top}}>
             <Icon
