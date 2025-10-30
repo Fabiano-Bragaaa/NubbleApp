@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useRef, useState} from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
 import {useIsFocused} from '@react-navigation/native';
@@ -20,10 +20,23 @@ const CONTROLS_HEIGHT = (Dimensions.get('window').height - CAMERA_VIEW) / 2;
 export function Camera({navigation}: AppScreenProps<'Camera'>) {
   const {top} = useAppSafeArea();
   const [flashOn, setFlashOn] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   const isFocused = useIsFocused();
   const appState = useAppState();
   const isActive = isFocused && appState === 'active';
+
+  const cameraRef = useRef<VisionCamera>(null);
+
+  async function takePhoto() {
+    if (cameraRef.current) {
+      const photo = await cameraRef.current.takePhoto({
+        flash: flashOn ? 'on' : 'off',
+      });
+
+      navigation.navigate('PublishPost', {imageUri: `file://${photo.path}`});
+    }
+  }
 
   const camera = useCameraDevice('back', {
     physicalDevices: [
@@ -39,17 +52,24 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
     setFlashOn(prev => !prev);
   }
 
+  console.log('camera', camera);
+  console.log('format', format);
+
   return (
     <PermissionManager
       permissionName="camera"
       description="Permita o nubble acessar a câmera">
       <Box flex={1}>
-        {camera && (
+        {camera != null && (
           <VisionCamera
+            ref={cameraRef}
             device={camera}
             format={format}
             isActive={isActive}
+            photo={true}
+            photoQualityBalance="quality"
             style={StyleSheet.absoluteFillObject}
+            onInitialized={() => setIsReady(true)}
           />
         )}
         <Box flex={1} justifyContent="space-between">
@@ -69,7 +89,14 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
             <Box width={20} />
           </Box>
           <Box {...$controlAreaBottom}>
-            <Icon name="cameraClick" size={80} color="grayWhite" />
+            {isReady && (
+              <Icon
+                name="cameraClick"
+                size={80}
+                color="grayWhite"
+                onPress={takePhoto}
+              />
+            )}
           </Box>
         </Box>
       </Box>
