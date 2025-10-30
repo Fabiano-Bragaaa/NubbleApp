@@ -3,7 +3,9 @@ import {Dimensions, StyleSheet} from 'react-native';
 
 import {useIsFocused} from '@react-navigation/native';
 import {
+  Templates,
   useCameraDevice,
+  useCameraFormat,
   Camera as VisionCamera,
 } from 'react-native-vision-camera';
 
@@ -23,7 +25,15 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
   const appState = useAppState();
   const isActive = isFocused && appState === 'active';
 
-  const camera = useCameraDevice('back');
+  const camera = useCameraDevice('back', {
+    physicalDevices: [
+      'ultra-wide-angle-camera',
+      'wide-angle-camera',
+      'telephoto-camera',
+    ],
+  });
+
+  const format = useCameraFormat(camera, Templates.Instagram);
 
   function toggleFlash() {
     setFlashOn(prev => !prev);
@@ -37,6 +47,7 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
         {camera && (
           <VisionCamera
             device={camera}
+            format={format}
             isActive={isActive}
             style={StyleSheet.absoluteFillObject}
           />
