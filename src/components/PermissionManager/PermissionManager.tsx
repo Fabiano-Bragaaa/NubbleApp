@@ -3,14 +3,12 @@ import {Linking, Platform} from 'react-native';
 
 import {PermissionName, usePermission} from '@services';
 
-import {
-  Screen,
-  Text,
-  Button,
-  ActivityIndicator,
-  Box,
-  TextProps,
-} from '@components';
+import {ActivityIndicator} from '../../components/ActivityIndicator/ActivityIndicator';
+import {Box} from '../../components/Box/Box';
+import {Button} from '../../components/Button/Button';
+import {Screen} from '../../components/Screen/Screen';
+import {Text} from '../../components/Text/Text';
+import {TextProps} from '../../components/Text/Text';
 
 interface PermissionManagerProps {
   permissionName: PermissionName;

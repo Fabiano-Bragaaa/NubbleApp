@@ -16,7 +16,7 @@ async function createPost(
 ): Promise<PostAPI> {
   const formData = new FormData();
   formData.append('text', text);
-  formData.append('image_cover', imageCover);
+  formData.append('imageCover', imageCover);
   const {data} = await api.postForm<PostAPI>('user/post', formData);
   return data;
 }
