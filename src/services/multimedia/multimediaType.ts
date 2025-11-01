@@ -3,3 +3,9 @@ export interface ImageForUpload {
   type: 'image/jpeg' | 'image/png';
   name: string;
 }
+
+export type PhotoListPaginated = {
+  photoList: string[];
+  cursor?: string;
+  hasNextPage: boolean;
+};
