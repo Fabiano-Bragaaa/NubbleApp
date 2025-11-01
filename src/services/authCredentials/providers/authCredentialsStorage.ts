@@ -1,5 +1,4 @@
-import {AuthCredentials} from '@domain';
-
+import {AuthCredentials} from '../../../domain/Auth/authTypes';
 import {storage} from '../../storage';
 
 const STORAGE_KEY = '@Auth';

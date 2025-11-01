@@ -1,6 +1,7 @@
-import {apiAdapter} from '@api';
-import {ImageForUpload} from '@services';
 import {Page} from '@types';
+
+import {apiAdapter} from '../../api/apiAdapter';
+import {ImageForUpload} from '../../services/multimedia/multimediaType';
 
 import {postAdapter} from './postAdapter';
 import {postApi} from './postApi';

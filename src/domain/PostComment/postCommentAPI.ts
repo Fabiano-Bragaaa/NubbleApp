@@ -1,4 +1,5 @@
-import {api, PageAPI, PageParams} from '@api';
+import {api} from '../../api/apiConfig';
+import {PageAPI, PageParams} from '../../api/apiTypes';
 
 import {PostCommentAPI} from './postCommentTypes';
 

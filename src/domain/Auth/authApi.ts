@@ -1,6 +1,6 @@
-import {api} from '@api';
 import {AxiosRequestConfig} from 'axios';
 
+import {api} from '../../api/apiConfig';
 import {UserApi} from '../User';
 
 import {

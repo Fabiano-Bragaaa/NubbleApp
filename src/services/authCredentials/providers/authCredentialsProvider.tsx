@@ -1,9 +1,10 @@
 import {createContext, PropsWithChildren, useEffect, useState} from 'react';
 
 import {api, registerInterceptor} from '@api';
-import {AuthCredentials, authService} from '@domain';
 
 import {authApi} from '../../../domain/Auth/authApi';
+import {authService} from '../../../domain/Auth/authService';
+import {AuthCredentials} from '../../../domain/Auth/authTypes';
 import {AuthCredentialsService} from '../authCredentialsType';
 
 import {authCredentialsStorage} from './authCredentialsStorage';
@@ -27,6 +28,8 @@ export function AuthCredentialsProvider({children}: PropsWithChildren<{}>) {
       authCredentials,
       removeCredentials,
       saveCredentials,
+      isRefreshTokenRequest: authApi.isRefreshTokenRequest,
+      authenticateByRefreshToken: authService.authenticateByRefreshToken,
     });
 
     //remove listener when component unmount

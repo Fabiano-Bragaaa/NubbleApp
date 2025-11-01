@@ -1,7 +1,7 @@
 import {MutationOptions} from '@infra';
-import {useAuthCredentials} from '@services';
-import {isError, useMutation} from '@tanstack/react-query';
+import {useMutation} from '@tanstack/react-query';
 
+import {useAuthCredentials} from '../../../services/authCredentials/useAuthCredentials';
 import {authService} from '../authService';
 import {AuthCredentials} from '../authTypes';
 

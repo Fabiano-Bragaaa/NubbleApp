@@ -1,6 +1,7 @@
 import {fireEvent, render, screen} from 'test-utils';
 
-import {PasswordInput, IconProps} from '@components';
+import {IconProps} from '../../Icon/Icon';
+import {PasswordInput} from '../PasswordInput';
 
 describe('<PasswordInput />', () => {
   it('starts with hidden password', () => {

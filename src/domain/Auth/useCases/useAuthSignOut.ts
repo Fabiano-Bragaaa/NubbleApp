@@ -1,6 +1,7 @@
-import {useAuthCredentials, useSearchHistoryService} from '@services';
 import {useMutation} from '@tanstack/react-query';
 
+import {useAuthCredentials} from '../../../services/authCredentials/useAuthCredentials';
+import {useSearchHistoryService} from '../../../services/searchHistory/useSearchHistory';
 import {authService} from '../authService';
 
 export function useAuthSignOut() {

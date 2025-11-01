@@ -1,5 +1,6 @@
-import {apiAdapter} from '@api';
 import {Page} from '@types';
+
+import {apiAdapter} from '../../api/apiAdapter';
 
 import {postCommentAdapter} from './postCommentAdapter';
 import {postCommentApi} from './postCommentAPI';

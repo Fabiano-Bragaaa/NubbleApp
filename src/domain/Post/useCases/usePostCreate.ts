@@ -1,7 +1,8 @@
 import {MutationOptions, QueryKeys} from '@infra';
-import {ImageForUpload, multimediaService} from '@services';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 
+import {multimediaService} from '../../../services/multimedia/multimediaService';
+import {ImageForUpload} from '../../../services/multimedia/multimediaType';
 import {postService} from '../postService';
 import {Post} from '../postTypes';
 

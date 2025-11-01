@@ -1,6 +1,7 @@
 import {Post} from '@domain';
 
-import {Box, ProfileUser} from '@components';
+import {Box} from '../Box/Box';
+import {ProfileUser} from '../ProfileUser/ProfileUser';
 
 import {PostAction} from './components/PostAction';
 import {PostBottom} from './components/PostBottom';

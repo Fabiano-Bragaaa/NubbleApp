@@ -1,5 +1,6 @@
-import {api, PageAPI, PageParams} from '@api';
-import {ImageForUpload} from '@services';
+import {api} from '../../api/apiConfig';
+import {PageAPI, PageParams} from '../../api/apiTypes';
+import {ImageForUpload} from '../../services/multimedia/multimediaType';
 
 import {PostAPI} from './postTypes';
 

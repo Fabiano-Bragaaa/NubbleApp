@@ -1,5 +1,6 @@
-import {apiAdapter} from '@api';
 import {Page} from '@types';
+
+import {apiAdapter} from '../../api/apiAdapter';
 
 import {userAdapter} from './userAdapter';
 import {userApi} from './userApi';

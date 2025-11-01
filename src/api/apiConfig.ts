@@ -1,5 +1,6 @@
-import {AuthCredentials, authService} from '@domain';
-import axios from 'axios';
+import axios, {AxiosRequestConfig} from 'axios';
+
+import {AuthCredentials} from '../domain/Auth/authTypes';
 
 export const BASE_URL = 'http://192.168.1.11:3333/';
 
@@ -11,30 +12,35 @@ interface InterceptorProps {
   authCredentials: AuthCredentials | null;
   saveCredentials: (ac: AuthCredentials) => Promise<void>;
   removeCredentials: () => Promise<void>;
+  isRefreshTokenRequest: (request: AxiosRequestConfig) => boolean;
+  authenticateByRefreshToken: (
+    refreshToken: string,
+  ) => Promise<AuthCredentials>;
 }
 
 export function registerInterceptor({
   authCredentials,
   removeCredentials,
   saveCredentials,
+  isRefreshTokenRequest,
+  authenticateByRefreshToken,
 }: InterceptorProps) {
   const interceptor = api.interceptors.response.use(
     response => response,
     async responseReject => {
       const failedRequest = responseReject.config;
       const hasNotRefreshToken = !authCredentials?.refreshToken;
-      const isRefreshTokenRequest =
-        authService.isRefreshTokenRequest(failedRequest);
+      const isRefreshToken = isRefreshTokenRequest(failedRequest);
 
       if (responseReject.response.status === 401) {
-        if (hasNotRefreshToken || isRefreshTokenRequest || failedRequest.sent) {
+        if (hasNotRefreshToken || isRefreshToken || failedRequest.sent) {
           removeCredentials();
           return Promise.reject(responseReject);
         }
 
         failedRequest.sent = true;
 
-        const newAuthCredentials = await authService.authenticateByRefreshToken(
+        const newAuthCredentials = await authenticateByRefreshToken(
           authCredentials?.refreshToken,
         );
         saveCredentials(newAuthCredentials);

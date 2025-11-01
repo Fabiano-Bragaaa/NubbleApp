@@ -7,13 +7,9 @@ import {mockedAuthCredentials} from './mockedData/mocks';
 
 const mockedSaveCredentials = jest.fn();
 
-jest.mock('@services', () => {
-  const originalModule = jest.requireActual('@services');
-  return {
-    ...originalModule,
-    useAuthCredentials: () => ({saveCredentials: mockedSaveCredentials}),
-  };
-});
+jest.mock('../../../../services/authCredentials/useAuthCredentials', () => ({
+  useAuthCredentials: () => ({saveCredentials: mockedSaveCredentials}),
+}));
 
 describe('useAuthSignIn', () => {
   it('saves credentials if the sign-in successfully', async () => {

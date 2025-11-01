@@ -1,8 +1,9 @@
 import {ReactNode} from 'react';
 import {KeyboardAvoidingView, Platform} from 'react-native';
 
-import {Box, BoxProps} from '@components';
 import {useAppTheme, useAppSafeArea} from '@hooks';
+
+import {Box, BoxProps} from '../Box/Box';
 
 import {ScreenHeader, ScrollViewContainer, ViewContainer} from './components';
 
