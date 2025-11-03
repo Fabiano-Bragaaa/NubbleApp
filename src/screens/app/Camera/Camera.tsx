@@ -2,6 +2,7 @@ import {useRef, useState} from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 
 import {useIsFocused} from '@react-navigation/native';
+import {multimediaService} from '@services';
 import {
   Templates,
   useCameraDevice,
@@ -34,7 +35,9 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
         flash: flashOn ? 'on' : 'off',
       });
 
-      navigation.navigate('PublishPost', {imageUri: `file://${photo.path}`});
+      navigation.navigate('PublishPost', {
+        imageUri: multimediaService.prepareImageUri(photo.path),
+      });
     }
   }
 
@@ -51,9 +54,6 @@ export function Camera({navigation}: AppScreenProps<'Camera'>) {
   function toggleFlash() {
     setFlashOn(prev => !prev);
   }
-
-  console.log('camera', camera);
-  console.log('format', format);
 
   return (
     <PermissionManager

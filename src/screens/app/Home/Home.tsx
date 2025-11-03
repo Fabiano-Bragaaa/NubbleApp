@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react';
+import {useRef} from 'react';
 import {
   FlatList,
   ListRenderItemInfo,
@@ -7,7 +7,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {Post, postService, usePostList} from '@domain';
+import {Post, usePostList} from '@domain';
 import {useScrollToTop} from '@react-navigation/native';
 
 import {PostItem, Screen} from '@components';
