@@ -37,6 +37,9 @@ const lightTheme = {
 
   market: palette.carrotSecondary,
   paragraph: palette.gray1,
+
+  iconColor: palette.greenPrimary,
+  iconFillColor: palette.grayWhite,
 };
 
 const darkTheme: typeof lightTheme = {
@@ -57,6 +60,9 @@ const darkTheme: typeof lightTheme = {
 
   market: palette.carrotSecondary,
   paragraph: palette.grayWhite,
+
+  iconColor: palette.greenPrimaryLight,
+  iconFillColor: palette.grayBlack,
 };
 
 export const colors = {palette, lightTheme, darkTheme};

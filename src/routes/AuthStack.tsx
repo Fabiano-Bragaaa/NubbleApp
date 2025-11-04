@@ -11,7 +11,7 @@ export type AuthStackParamList = {
   Success: {
     title: string;
     description: string;
-    icon: Pick<IconProps, 'name' | 'color'>;
+    icon: Pick<IconProps, 'name' | 'color' | 'fillColor'>;
   };
   ForgotPassword: undefined;
 };

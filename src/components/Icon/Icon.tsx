@@ -1,3 +1,4 @@
+import {ComponentProps} from 'react';
 import {Pressable} from 'react-native';
 
 import {useAppTheme} from '@hooks';
@@ -38,11 +39,13 @@ import {TrashIcon} from '../../assets/icons/TrashIcon';
 export type IconBase = {
   size?: number;
   color?: string;
+  fillColor?: string;
 };
 
 export type IconProps = {
   name: IconName;
   color?: ThemeColors;
+  fillColor?: ThemeColors;
   size?: number;
   onPress?: () => void;
 };
@@ -50,21 +53,27 @@ export type IconProps = {
 export function Icon({
   name,
   color = 'backgroundContranst',
-  size = 20,
+  size,
+  fillColor = 'background',
   onPress,
 }: IconProps) {
   const {colors} = useAppTheme();
   const SVGIcon = iconRegistry[name];
+  const iconProps: ComponentProps<typeof SVGIcon> = {
+    size,
+    color: colors[color],
+    fillColor: colors[fillColor],
+  };
 
   if (onPress) {
     return (
       <Pressable testID={name} hitSlop={10} onPress={onPress}>
-        <SVGIcon color={colors[color]} size={size} />
+        <SVGIcon {...iconProps} />
       </Pressable>
     );
   }
 
-  return <SVGIcon color={colors[color]} size={size} />;
+  return <SVGIcon {...iconProps} />;
 }
 
 const iconRegistry = {

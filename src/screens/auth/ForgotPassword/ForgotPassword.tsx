@@ -18,7 +18,8 @@ const resetParam: AuthStackParamList['Success'] = {
   description: 'Clique no link enviado no seu e-mail para recuperar sua senha',
   icon: {
     name: 'messageRound',
-    color: 'greenPrimary',
+    color: 'iconColor',
+    fillColor: 'iconFillColor',
   },
 };
 
@@ -46,7 +47,8 @@ export function ForgotPassword({
   });
 
   function submitForm({email}: typeforgotPasswordSchema) {
-    requestNewPassoword(email);
+    // requestNewPassoword(email);
+    reset(resetParam);
   }
 
   return (
