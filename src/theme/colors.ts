@@ -36,9 +36,10 @@ const lightTheme = {
   succesLight: palette.greenSuccessLight,
 
   market: palette.carrotSecondary,
+  paragraph: palette.gray1,
 };
 
-const darkTheme = {
+const darkTheme: typeof lightTheme = {
   ...palette,
   primary: palette.carrotSecondary,
   primaryContranst: palette.grayWhite,
@@ -55,6 +56,7 @@ const darkTheme = {
   succesLight: palette.greenSuccessLight,
 
   market: palette.carrotSecondary,
+  paragraph: palette.grayWhite,
 };
 
 export const colors = {palette, lightTheme, darkTheme};
