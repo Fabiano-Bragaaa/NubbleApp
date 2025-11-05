@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import {
   Camera,
+  DarkMode,
   PostComment,
   Profile,
   PublishPost,
@@ -15,6 +16,7 @@ import {AppTabBottomTabParamList, AppTabNavigator} from './AppTabNavigator';
 export type AppStackParamList = {
   AppTabNavigator: NavigatorScreenParams<AppTabBottomTabParamList>;
   Settings: undefined;
+  DarkMode: undefined;
   PostComment: {
     postId: number;
     postAuthor: number;
@@ -44,6 +46,7 @@ export function AppStack({
       initialRouteName={initialRouteName}>
       <Screen name="AppTabNavigator" component={AppTabNavigator} />
       <Screen name="Settings" component={Settings} />
+      <Screen name="DarkMode" component={DarkMode} />
       <Screen name="PostComment" component={PostComment} />
       <Screen name="Profile" component={Profile} />
       <Screen name="Search" component={Search} />

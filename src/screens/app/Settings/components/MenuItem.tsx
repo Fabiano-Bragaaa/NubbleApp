@@ -13,7 +13,7 @@ export function MenuItem({title, onPress}: MenuItemProps) {
       alignItems="center"
       paddingVertical="s16"
       onPress={onPress}>
-      <Text>{title}</Text>
+      <Text semiBold>{title}</Text>
       <Icon name="chevronRight" />
     </TouchableOpacityBox>
   );

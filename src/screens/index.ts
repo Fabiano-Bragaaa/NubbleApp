@@ -13,3 +13,4 @@ export * from './app/Profile/Profile';
 export * from './app/Search/Search';
 export * from './app/PublishPost/PublishPost';
 export * from './app/Camera/Camera';
+export * from './app/DarkMode/DarkMode';
