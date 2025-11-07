@@ -1,8 +1,8 @@
 import {Appearance, ColorSchemeName} from 'react-native';
 
-import {AppTheme, ThemePreference} from './settingsType';
+import {AppColorSchema, ThemePreference} from './settingsType';
 
-function onThemePreference(themePreference: ThemePreference): AppTheme {
+function onThemePreference(themePreference: ThemePreference): AppColorSchema {
   if (themePreference === 'system') {
     const currentColorScheme = Appearance.getColorScheme();
     return currentColorScheme ? currentColorScheme : 'light';
@@ -14,7 +14,7 @@ function onThemePreference(themePreference: ThemePreference): AppTheme {
 function onSystemThemeChange(
   color: ColorSchemeName,
   themePreference: ThemePreference,
-): AppTheme | null {
+): AppColorSchema | null {
   if (themePreference === 'system') {
     return color ? color : 'light';
   }

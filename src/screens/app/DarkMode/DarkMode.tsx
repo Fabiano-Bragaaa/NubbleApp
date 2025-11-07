@@ -1,5 +1,7 @@
 import {useState} from 'react';
 
+import {useSettingsService, useThemePreference} from '@services';
+
 import {RadioButtonSelector, Screen} from '@components';
 import {AppScreenProps} from '@routes';
 
@@ -14,11 +16,11 @@ type Option = {
 const itemList: Option[] = [
   {
     label: 'Ativado',
-    value: 'light',
+    value: 'dark',
   },
   {
     label: 'Desativado',
-    value: 'dark',
+    value: 'light',
   },
   {
     label: 'Padrão do sistema',
@@ -29,7 +31,14 @@ const itemList: Option[] = [
 ];
 
 export function DarkMode({navigation}: AppScreenProps<'DarkMode'>) {
-  const [selectedItem, setSelectedItem] = useState<Option>();
+  const themePreference = useThemePreference();
+  const {setThemePreference} = useSettingsService();
+
+  const selectedItem = itemList.find(item => item.value === themePreference);
+
+  function setSelectedItem(item: Option) {
+    setThemePreference(item.value);
+  }
 
   return (
     <Screen canGoBack title="Modo noturno">
