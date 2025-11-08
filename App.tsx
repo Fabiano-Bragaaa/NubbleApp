@@ -6,6 +6,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {Toast} from '@components';
+import {useAppColorScheme} from '@hooks';
 
 import {Router} from './src/routes/routes';
 import {AuthCredentialsProvider} from './src/services/authCredentials';
@@ -18,6 +19,8 @@ const queryClient = new QueryClient();
 
 function App(): React.JSX.Element {
   const appColor = useAppColor();
+  useAppColorScheme();
+
   return (
     <AuthCredentialsProvider>
       <QueryClientProvider client={queryClient}>

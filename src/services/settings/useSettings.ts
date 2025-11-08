@@ -1,7 +1,7 @@
 import {create} from 'zustand';
-import {persist} from 'zustand/middleware';
+import {createJSONStorage, persist} from 'zustand/middleware';
 
-import {storage} from '../storage';
+import {zustandMMKVStorage} from '../storage';
 
 import {settingsService} from './settingsService';
 import {AppColorSchema, SettingsStore, ThemePreference} from './settingsType';
@@ -31,7 +31,7 @@ const useSettingsStore = create<SettingsStore>()(
     }),
     {
       name: '@Settings',
-      storage,
+      storage: createJSONStorage(() => zustandMMKVStorage),
     },
   ),
 );

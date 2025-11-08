@@ -2,7 +2,7 @@ import axios, {AxiosRequestConfig} from 'axios';
 
 import {AuthCredentials} from '../domain/Auth/authTypes';
 
-export const BASE_URL = 'http://192.168.1.11:3333/';
+export const BASE_URL = 'http://localhost:3333/';
 
 export const api = axios.create({
   baseURL: BASE_URL,
