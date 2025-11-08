@@ -1,4 +1,6 @@
-import {Appearance, ColorSchemeName} from 'react-native';
+import {Appearance, ColorSchemeName, Platform, StatusBar} from 'react-native';
+
+import {colors} from '@theme';
 
 import {AppColorSchema, ThemePreference} from './settingsType';
 
@@ -22,7 +24,22 @@ function onSystemThemeChange(
   return null;
 }
 
+function handleStatusBar(appColor: AppColorSchema) {
+  if (appColor === 'light') {
+    StatusBar.setBarStyle('dark-content', true);
+  } else {
+    StatusBar.setBarStyle('light-content', true);
+  }
+
+  if (Platform.OS === 'android') {
+    StatusBar.setBackgroundColor(
+      appColor === 'dark' ? colors.palette.grayBlack : colors.palette.grayWhite,
+    );
+  }
+}
+
 export const settingsService = {
   onThemePreference,
   onSystemThemeChange,
+  handleStatusBar,
 };
