@@ -5,6 +5,7 @@ import {ActivityIndicator, Box} from '@components';
 
 import {AppStack} from './AppStack';
 import {AuthStack} from './AuthStack';
+import {OnBoardingStack} from './OnBoardingStack';
 
 export function Router() {
   const {authCredentials, isLoading} = useAuthCredentials();
@@ -19,7 +20,8 @@ export function Router() {
 
   return (
     <NavigationContainer>
-      {authCredentials ? <AppStack /> : <AuthStack />}
+      {/* {authCredentials ? <AppStack /> : <AuthStack />} */}
+      <OnBoardingStack />
     </NavigationContainer>
   );
 }
