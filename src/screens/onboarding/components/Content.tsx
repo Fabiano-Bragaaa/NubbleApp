@@ -1,0 +1,14 @@
+import {Box, Text} from '@components';
+
+import {OnBoardingPageItem} from '../onboardingData';
+
+type ContentProps = Omit<OnBoardingPageItem, 'image'>;
+
+export function Content({title, description}: ContentProps) {
+  return (
+    <Box>
+      <Text preset="headingLarge">{title}</Text>
+      <Text preset="paragraphLarge">{description}</Text>
+    </Box>
+  );
+}
