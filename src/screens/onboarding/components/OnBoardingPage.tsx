@@ -1,27 +1,36 @@
-import {ImageSourcePropType} from 'react-native';
-
-import {images} from '@assets';
+import {Dimensions} from 'react-native';
 
 import {Box} from '@components';
 
-import {onboardingPages} from '../onboardingData';
+import {OnBoardingPageItem} from '../onboardingData';
 
 import {BottomMenu} from './BottomMenu';
 import {Content} from './Content';
 import {ImageHeader} from './ImageHeader';
 
-export function OnBoardingPage() {
-  const page = onboardingPages[0];
+export type OnBoardingPageProps = OnBoardingPageItem & {
+  onPressNext: () => void;
+  onPressSkip: () => void;
+};
+
+export function OnBoardingPage({
+  title,
+  description,
+  image,
+  onPressNext,
+  onPressSkip,
+}: OnBoardingPageProps) {
+  const SCREEN_WIDTH = Dimensions.get('window').width;
   return (
-    <Box flex={1} bg="background">
+    <Box flex={1} bg="background" width={SCREEN_WIDTH}>
       <Box flex={4}>
-        <ImageHeader source={page.image} />
+        <ImageHeader source={image} />
       </Box>
       <Box flex={5}>
-        <Content {...page} />
+        <Content title={title} description={description} />
       </Box>
       <Box flex={1}>
-        <BottomMenu />
+        <BottomMenu onPressNext={onPressNext} onPressSkip={onPressSkip} />
       </Box>
     </Box>
   );
