@@ -14,9 +14,17 @@ export type OnBoardingPageItem = {
     light: ImageSourcePropType;
     dark: ImageSourcePropType;
   };
+  index: number;
+  total: number;
+  isLast: boolean;
 };
 
-const page1: OnBoardingPageItem = {
+type OnBoardingPageItemWithoutMeta = Omit<
+  OnBoardingPageItem,
+  'index' | 'total' | 'isLast'
+>;
+
+const page1: OnBoardingPageItemWithoutMeta = {
   title: [
     {title: 'Uma rede social de', highlight: false},
     {title: ' conexões reais', highlight: true},
@@ -29,7 +37,7 @@ const page1: OnBoardingPageItem = {
   },
 };
 
-const page2: OnBoardingPageItem = {
+const page2: OnBoardingPageItemWithoutMeta = {
   title: [
     {title: 'Compartilhe suas ', highlight: false},
     {title: ' histórias', highlight: true},
@@ -42,7 +50,7 @@ const page2: OnBoardingPageItem = {
   },
 };
 
-const page3: OnBoardingPageItem = {
+const page3: OnBoardingPageItemWithoutMeta = {
   title: [
     {title: 'Interaja', highlight: true},
     {title: ' em tempo real com as pessoas', highlight: false},
@@ -54,4 +62,11 @@ const page3: OnBoardingPageItem = {
   },
 };
 
-export const onboardingPages: OnBoardingPageItem[] = [page1, page2, page3];
+export const onboardingPages: OnBoardingPageItem[] = [page1, page2, page3].map(
+  (page, index, array) => ({
+    ...page,
+    index,
+    total: array.length,
+    isLast: index === array.length - 1,
+  }),
+);

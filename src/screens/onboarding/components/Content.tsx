@@ -2,7 +2,10 @@ import {Box, Text} from '@components';
 
 import {OnBoardingPageItem} from '../onboardingData';
 
-type ContentProps = Omit<OnBoardingPageItem, 'image'>;
+type ContentProps = Omit<
+  OnBoardingPageItem,
+  'image' | 'isLast' | 'index' | 'total'
+>;
 
 export function Content({title, description}: ContentProps) {
   return (

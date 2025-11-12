@@ -2,9 +2,13 @@ import {Box, Icon, PressableBox, Text} from '@components';
 
 import {OnBoardingPageProps} from './OnBoardingPage';
 
-type Props = Pick<OnBoardingPageProps, 'onPressNext' | 'onPressSkip'>;
+type Props = Pick<
+  OnBoardingPageProps,
+  'onPressNext' | 'onPressSkip' | 'isLast'
+>;
 
-export function BottomMenu({onPressNext, onPressSkip}: Props) {
+export function BottomMenu({onPressNext, onPressSkip, isLast}: Props) {
+  const nextText = isLast ? 'Começar' : 'Próximo';
   return (
     <Box
       flexDirection="row"
@@ -22,7 +26,7 @@ export function BottomMenu({onPressNext, onPressSkip}: Props) {
         flexDirection="row"
         alignItems="center"
         gap="s4">
-        <Text bold>Próximo</Text>
+        <Text bold>{nextText}</Text>
         <Icon name="arrowRight" color="carrotSecondary" />
       </PressableBox>
     </Box>

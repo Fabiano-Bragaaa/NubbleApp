@@ -19,6 +19,7 @@ export function OnBoardingPage({
   image,
   onPressNext,
   onPressSkip,
+  isLast,
 }: OnBoardingPageProps) {
   const SCREEN_WIDTH = Dimensions.get('window').width;
   return (
@@ -30,7 +31,11 @@ export function OnBoardingPage({
         <Content title={title} description={description} />
       </Box>
       <Box flex={1}>
-        <BottomMenu onPressNext={onPressNext} onPressSkip={onPressSkip} />
+        <BottomMenu
+          onPressNext={onPressNext}
+          onPressSkip={onPressSkip}
+          isLast={isLast}
+        />
       </Box>
     </Box>
   );
