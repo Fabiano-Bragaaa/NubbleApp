@@ -2,8 +2,13 @@ import {ImageSourcePropType} from 'react-native';
 
 import {images} from '@assets';
 
-export type OnBoardingPageItem = {
+type titleHighlightProps = {
   title: string;
+  highlight: boolean;
+};
+
+export type OnBoardingPageItem = {
+  title: titleHighlightProps[];
   description: string;
   image: {
     light: ImageSourcePropType;
@@ -12,8 +17,12 @@ export type OnBoardingPageItem = {
 };
 
 const page1: OnBoardingPageItem = {
-  title: 'Welcome to the app',
-  description: 'This is the first onboarding page',
+  title: [
+    {title: 'Uma rede social de', highlight: false},
+    {title: ' conexões reais', highlight: true},
+  ],
+  description:
+    'Fique por dentro do que acontece com as pessoas que você mais gosta ',
   image: {
     light: images.onboardingLight1,
     dark: images.onboardingDark1,
@@ -21,7 +30,11 @@ const page1: OnBoardingPageItem = {
 };
 
 const page2: OnBoardingPageItem = {
-  title: 'Compartilhe suas histórias com seus amigos próximos',
+  title: [
+    {title: 'Compartilhe suas ', highlight: false},
+    {title: ' histórias', highlight: true},
+    {title: ' com seus amigos próximos', highlight: false},
+  ],
   description: 'Tenha sua linha do tempo personalizada',
   image: {
     light: images.onboardingLight2,
@@ -30,7 +43,10 @@ const page2: OnBoardingPageItem = {
 };
 
 const page3: OnBoardingPageItem = {
-  title: 'Interaja em tempo real com as pessoas',
+  title: [
+    {title: 'Interaja', highlight: true},
+    {title: ' em tempo real com as pessoas', highlight: false},
+  ],
   description: 'Curta, comente e favorite os conteúdos que você mais gostar',
   image: {
     light: images.onboardingLight3,

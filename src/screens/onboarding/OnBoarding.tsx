@@ -41,7 +41,7 @@ export function OnBoarding({}: OnBoardingScreenProps<'OnBoarding'>) {
   }
 
   return (
-    <Box flex={1}>
+    <Box flex={1} bg="background">
       <FlatList
         ref={flatListRef}
         data={onboardingPages}

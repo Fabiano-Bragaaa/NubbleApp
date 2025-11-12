@@ -7,7 +7,7 @@ export function useAppColorScheme() {
   const {onThemeChange} = useSettingsService();
 
   useEffect(() => {
-    onThemeChange(Appearance.getColorScheme());
+    onThemeChange(Appearance.getColorScheme() || 'light');
   }, [onThemeChange]);
 
   useEffect(() => {

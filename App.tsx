@@ -19,6 +19,9 @@ const queryClient = new QueryClient();
 
 function App(): React.JSX.Element {
   const appColor = useAppColor();
+
+  console.log('appColor', appColor);
+
   useAppColorScheme();
 
   useEffect(() => {

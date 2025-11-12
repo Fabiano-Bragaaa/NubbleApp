@@ -6,9 +6,15 @@ type Props = Pick<OnBoardingPageProps, 'onPressNext' | 'onPressSkip'>;
 
 export function BottomMenu({onPressNext, onPressSkip}: Props) {
   return (
-    <Box flexDirection="row" justifyContent="space-between" alignItems="center">
+    <Box
+      flexDirection="row"
+      justifyContent="space-between"
+      alignItems="center"
+      paddingHorizontal="s24">
       <PressableBox hitSlop={10} onPress={onPressSkip}>
-        <Text>Pular</Text>
+        <Text color="gray2" semiBold>
+          Pular
+        </Text>
       </PressableBox>
       <PressableBox
         hitSlop={10}
@@ -16,8 +22,8 @@ export function BottomMenu({onPressNext, onPressSkip}: Props) {
         flexDirection="row"
         alignItems="center"
         gap="s4">
-        <Text>Próximo</Text>
-        <Icon name="arrowRight" />
+        <Text bold>Próximo</Text>
+        <Icon name="arrowRight" color="carrotSecondary" />
       </PressableBox>
     </Box>
   );

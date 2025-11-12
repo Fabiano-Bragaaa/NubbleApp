@@ -26,7 +26,7 @@ export function OnBoardingPage({
       <Box flex={4}>
         <ImageHeader source={image} />
       </Box>
-      <Box flex={5}>
+      <Box flex={5} paddingHorizontal="s24">
         <Content title={title} description={description} />
       </Box>
       <Box flex={1}>
