@@ -15,6 +15,6 @@ export function ImageHeader({source}: ImageHeaderProps) {
 
   const imageSource = appColor === 'light' ? source.light : source.dark;
   return (
-    <Image source={imageSource} style={{width: SCREEN_WIDTH, height: '100%'}} />
+    <Image source={imageSource} style={{width: SCREEN_WIDTH, height: '90%'}} />
   );
 }

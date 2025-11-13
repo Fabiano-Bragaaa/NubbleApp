@@ -1,15 +1,13 @@
-import {Box, Text} from '@components';
+import {Box, ProgressIndicator, Text} from '@components';
 
 import {OnBoardingPageItem} from '../onboardingData';
 
-type ContentProps = Omit<
-  OnBoardingPageItem,
-  'image' | 'isLast' | 'index' | 'total'
->;
+type ContentProps = Omit<OnBoardingPageItem, 'image' | 'isLast'>;
 
-export function Content({title, description}: ContentProps) {
+export function Content({title, description, total, index}: ContentProps) {
   return (
     <Box>
+      <ProgressIndicator total={total} current={index} mb="s24" />
       <Text preset="headingLarge">
         {title.map(item => (
           <Text
@@ -20,7 +18,9 @@ export function Content({title, description}: ContentProps) {
           </Text>
         ))}
       </Text>
-      <Text preset="paragraphLarge">{description}</Text>
+      <Text mt="s16" preset="paragraphLarge">
+        {description}
+      </Text>
     </Box>
   );
 }
