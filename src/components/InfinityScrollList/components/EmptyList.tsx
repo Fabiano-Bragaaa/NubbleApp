@@ -1,4 +1,7 @@
-import {ActivityIndicator, Box, Button, Text} from '@components';
+import {ActivityIndicator} from '../../ActivityIndicator/ActivityIndicator';
+import {Box} from '../../Box/Box';
+import {Button} from '../../Button/Button';
+import {Text} from '../../Text/Text';
 
 export interface EmptyListProps {
   loading: boolean;
