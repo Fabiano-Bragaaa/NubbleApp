@@ -6,4 +6,5 @@ export enum QueryKeys {
   UserGetById = 'UserGetById',
   isUsernameAvailable = 'isUsernameAvailable',
   isEmailAvailable = 'isEmailAvailable',
+  FavoriteList = 'FavoriteList',
 }
