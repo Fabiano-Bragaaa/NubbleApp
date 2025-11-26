@@ -13,7 +13,7 @@ export interface PostReactionBase {
   updatedAt: string;
 }
 
-export interface PostReaction extends PostReactionBaseAPI {
+export interface PostReaction extends PostReactionBase {
   author: User;
   post: Pick<PostAPI, 'id' | 'text' | 'image_url'>;
 }
