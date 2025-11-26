@@ -25,16 +25,16 @@ async function getMyReactions(
   return data;
 }
 
-async function getReactionsByPostId(
+async function createOrUpdateReaction(
   post_id: number,
   reaction_type: PostReactionType,
-): Promise<PageAPI<PostReactionBaseAPI>> {
+): Promise<PostReactionBaseAPI> {
   const path = `${POST_REACTION_PATH}/${post_id}/${reaction_type}`;
-  const {data} = await api.get<PageAPI<PostReactionAPI>>(path);
-  return data;
+  const response = await api.post<PostReactionBaseAPI>(path);
+  return response.data;
 }
 
 export const postReactionApi = {
   getMyReactions,
-  getReactionsByPostId,
+  createOrUpdateReaction,
 };
