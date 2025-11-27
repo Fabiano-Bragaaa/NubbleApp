@@ -1,6 +1,7 @@
 export enum QueryKeys {
   CameraRollList = 'CameraRollList',
   PostList = 'PostList',
+  PostGetById = 'PostGetById',
   PostCommentList = 'PostCommentList',
   UserList = 'UserList',
   UserGetById = 'UserGetById',

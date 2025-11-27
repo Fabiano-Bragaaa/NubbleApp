@@ -1,4 +1,4 @@
-import {Dimensions, Image, ListRenderItemInfo} from 'react-native';
+import {Dimensions, Image, ListRenderItemInfo, Pressable} from 'react-native';
 
 import {postReactionService} from '@domain';
 import {QueryKeys} from '@infra';
@@ -15,16 +15,22 @@ const ITEM_MARGIN = 8 * 2;
 const ITEM_WIDTH =
   (SCREEN_WIDTH - SCREEN_PADDING * 2 - ITEM_MARGIN) / NUM_COLUMNS;
 
-export function Favorite({}: AppTabScreenProps<'Favorite'>) {
+export function Favorite({navigation}: AppTabScreenProps<'Favorite'>) {
   function renderItem({item}: ListRenderItemInfo<PostReaction>) {
     return (
-      <Box>
+      <Pressable
+        onPress={() =>
+          navigation.navigate('PostComment', {
+            postId: item.post.id,
+            postAuthor: item.author.id,
+          })
+        }>
         <Image
           source={{uri: item.post.image_url}}
           style={{width: ITEM_WIDTH, height: ITEM_WIDTH}}
         />
-        <Text>{item.author.username}</Text>
-      </Box>
+        <Text mt="s4">{item.author.username}</Text>
+      </Pressable>
     );
   }
 
