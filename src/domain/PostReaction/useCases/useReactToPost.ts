@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import {MutationOptions} from '@infra';
+import {MutationOptions, QueryKeys} from '@infra';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 import {Post} from '../../Post/postTypes';
@@ -11,9 +11,15 @@ type Params = {
   post: Post;
   postReaction: PostReactionType;
   options?: MutationOptions<PostReactionBase>;
+  queryKeys?: QueryKeys[];
 };
 
-export function useReactToPost({post, postReaction, options}: Params) {
+export function useReactToPost({
+  post,
+  postReaction,
+  options,
+  queryKeys,
+}: Params) {
   const initialHasReacted = postReactionService.hasReactedToPost(
     post.reactions,
     postReaction,
@@ -29,27 +35,32 @@ export function useReactToPost({post, postReaction, options}: Params) {
 
   const queryClient = useQueryClient();
 
-  const {mutate, isLoading, isError} = useMutation<
-    PostReactionBase,
-    Error,
-    void
-  >({
+  const {mutate} = useMutation<PostReactionBase, Error, void>({
     mutationFn: () => postReactionService.reactToPost(post.id, postReaction),
     onSuccess: () => {
-      //TODO: atualizar o post com o novo reaction
+      if (queryKeys) {
+        queryKeys.forEach(queryKey => {
+          queryClient.invalidateQueries([queryKey]);
+        });
+      }
     },
     onError: () => {
       if (options?.onError) {
         options.onError(options?.errorMessage || 'Ocorreu um erro');
       }
+      toggleReaction();
     },
   });
 
-  function reactToPost() {
+  function toggleReaction() {
     setReactionState(prev => ({
       hasReacted: !prev.hasReacted,
       reactionCount: prev.reactionCount + (prev.hasReacted ? -1 : 1),
     }));
+  }
+
+  function reactToPost() {
+    toggleReaction();
     mutate();
   }
 
