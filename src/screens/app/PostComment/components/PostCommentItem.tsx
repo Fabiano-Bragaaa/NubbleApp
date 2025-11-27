@@ -51,7 +51,11 @@ export function PostCommentItem({
       testID="post-comment-id"
       disabled={!isAllowToDelete}
       onLongPress={confirmRemove}>
-      <Box flexDirection="row" mb="s16" alignItems="center">
+      <Box
+        paddingHorizontal="s24"
+        flexDirection="row"
+        mb="s16"
+        alignItems="center">
         <ProfileAvatar imageUrl={postComment.author.profileURL} />
         <Box ml="s16" flex={1}>
           <Text preset="paragraphSmall" bold>

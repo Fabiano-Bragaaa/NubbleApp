@@ -20,6 +20,7 @@ export type AppStackParamList = {
   PostComment: {
     postId: number;
     postAuthor: number;
+    showPost?: boolean;
   };
   Profile: {
     userId: number;

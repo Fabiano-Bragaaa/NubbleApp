@@ -19,9 +19,10 @@ import {
 
 export function PostComment({route}: AppScreenProps<'PostComment'>) {
   const postId = route.params.postId;
+  const showPost = route.params.showPost || false;
   const postAuthorId = route.params.postAuthor;
   const {list, fetchNextPage, hasNextPage} = usePostCommentList(postId);
-  const {post} = usePostGetById(postId);
+  const {post} = usePostGetById(postId, showPost);
 
   const {userId} = useAuthCredentials();
   const {bottom} = useAppSafeArea();
@@ -38,14 +39,20 @@ export function PostComment({route}: AppScreenProps<'PostComment'>) {
   }
 
   return (
-    <Screen title="Comentários" canGoBack flex={1}>
+    <Screen
+      noPaddingHorizontal
+      title={showPost ? 'Post' : 'Comentários'}
+      canGoBack
+      flex={1}>
       <Box flex={1} justifyContent="space-between">
         <FlatList
           contentContainerStyle={{paddingBottom: bottom}}
           showsVerticalScrollIndicator={false}
           data={list}
           renderItem={renderItem}
-          ListHeaderComponent={post && <PostItem post={post} />}
+          ListHeaderComponent={
+            post && <PostItem post={post} hideCommentAction />
+          }
           removeClippedSubviews={false}
           ListFooterComponent={
             <PostCommentBottom
