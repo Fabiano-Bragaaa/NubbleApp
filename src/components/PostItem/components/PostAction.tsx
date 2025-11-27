@@ -1,4 +1,4 @@
-import {Post} from '@domain';
+import {Post, useReactToPost} from '@domain';
 
 import {Box, TouchableOpacityBox} from '../../Box/Box';
 import {Icon, IconProps} from '../../Icon/Icon';
@@ -10,6 +10,8 @@ type Props = {
 };
 
 export function PostAction({post, hideCommentAction = false}: Props) {
+  const likeReaction = useReactToPost({post, postReaction: 'like'});
+  const favoriteReaction = useReactToPost({post, postReaction: 'favorite'});
   function likePost() {
     //TODO
   }
@@ -25,7 +27,7 @@ export function PostAction({post, hideCommentAction = false}: Props) {
   return (
     <Box flexDirection="row" mt="s16">
       <Item
-        marked
+        marked={likeReaction.hasReacted}
         icon={{default: 'heart', marked: 'heartFill'}}
         onPress={likePost}
         text={
@@ -40,7 +42,7 @@ export function PostAction({post, hideCommentAction = false}: Props) {
         text={post.commentCount}
       />
       <Item
-        marked={false}
+        marked={favoriteReaction.hasReacted}
         icon={{default: 'bookmark', marked: 'bookmarkFill'}}
         onPress={likePost}
         text={post.favoriteCount}

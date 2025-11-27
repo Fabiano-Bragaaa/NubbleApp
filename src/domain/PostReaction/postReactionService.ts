@@ -27,6 +27,13 @@ async function getMyReactions(
   );
 }
 
+function hasReactedToPost(
+  postReaction: Pick<PostReaction, 'emojiType'>[],
+  postReactionType: PostReactionType,
+): boolean {
+  return postReaction.some(reaction => reaction.emojiType === postReactionType);
+}
+
 async function reactToPost(
   postId: number,
   reactionType: PostReactionType,
@@ -38,4 +45,8 @@ async function reactToPost(
   return postReactionAdapter.toPostReactionBase(postReactionBaseApi);
 }
 
-export const postReactionService = {getMyReactions};
+export const postReactionService = {
+  getMyReactions,
+  hasReactedToPost,
+  reactToPost,
+};
