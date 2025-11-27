@@ -12,9 +12,6 @@ type Props = {
 export function PostAction({post, hideCommentAction = false}: Props) {
   const likeReaction = useReactToPost({post, postReaction: 'like'});
   const favoriteReaction = useReactToPost({post, postReaction: 'favorite'});
-  function likePost() {
-    //TODO
-  }
 
   function navigateToComments() {
     //TODO
@@ -29,11 +26,8 @@ export function PostAction({post, hideCommentAction = false}: Props) {
       <Item
         marked={likeReaction.hasReacted}
         icon={{default: 'heart', marked: 'heartFill'}}
-        onPress={likePost}
-        text={
-          post.reactions.filter(reaction => reaction.emojiType === 'like')
-            .length
-        }
+        onPress={likeReaction.reactToPost}
+        text={likeReaction.reactionCount}
       />
       <Item
         icon={{default: 'comment', marked: 'comment'}}
@@ -44,8 +38,8 @@ export function PostAction({post, hideCommentAction = false}: Props) {
       <Item
         marked={favoriteReaction.hasReacted}
         icon={{default: 'bookmark', marked: 'bookmarkFill'}}
-        onPress={likePost}
-        text={post.favoriteCount}
+        onPress={favoriteReaction.reactToPost}
+        text={favoriteReaction.reactionCount}
       />
     </Box>
   );
