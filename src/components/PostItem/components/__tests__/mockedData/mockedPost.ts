@@ -13,4 +13,14 @@ export const mockedPost: Post = {
     profileURL: 'https://example.com',
     userName: 'fabiano',
   },
+  reactions: [
+    {
+      postId: 1,
+      emojiType: 'like',
+    },
+    {
+      postId: 1,
+      emojiType: 'favorite',
+    },
+  ],
 };

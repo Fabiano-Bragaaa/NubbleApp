@@ -1,3 +1,5 @@
+import {PostReaction, PostReactionAPI} from '../PostReaction';
+
 export interface Post {
   id: number;
   text: string;
@@ -11,6 +13,7 @@ export interface Post {
   reactionCount: number;
   commentCount: number;
   favoriteCount: number;
+  reactions: Pick<PostReaction, 'postId' | 'emojiType'>[];
 }
 
 export interface PostAPI {
@@ -38,4 +41,5 @@ export interface PostAPI {
     favorite_count: string; // '2';
     comments_count: string; //'1';
   };
+  reactions: Pick<PostReactionAPI, 'post_id' | 'emoji_type'>[];
 }
