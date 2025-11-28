@@ -25,3 +25,18 @@ export const postWithoutLikeResponse: PostReactionBase = {
   createdAt: '2021-01-01',
   updatedAt: '2021-01-01',
 };
+
+export const postWithLikeResponse: PostReactionBase = {
+  ...postWithoutLikeResponse,
+  isChecked: false,
+};
+
+export const postWithLike: Post = {
+  ...postWithoutLike,
+  reactions: [
+    {
+      postId: postWithoutLike.id,
+      emojiType: 'like',
+    },
+  ],
+};
