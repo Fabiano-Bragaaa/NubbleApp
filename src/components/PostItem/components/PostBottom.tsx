@@ -1,6 +1,8 @@
 import {Post} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
+import {useAppNavigation} from '@hooks';
+
 import {Box} from '../../Box/Box';
 import {Text} from '../../Text/Text';
 
@@ -15,11 +17,11 @@ export function PostBottom({
   id,
   hideCommentAction,
 }: Props) {
-  const navigation = useNavigation();
+  const navigate = useAppNavigation();
   const commentText = hideCommentAction ? null : getCommentText(commentCount);
 
   function navigateToPostComment() {
-    navigation.navigate('PostComment', {
+    navigate.toPostComment({
       postId: id,
       postAuthor: author.id,
     });

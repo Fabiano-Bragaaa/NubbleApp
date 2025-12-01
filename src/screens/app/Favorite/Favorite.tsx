@@ -4,7 +4,8 @@ import {postReactionService} from '@domain';
 import {QueryKeys} from '@infra';
 import {PostReaction} from 'src/domain/PostReaction/PostReactionType';
 
-import {Box, InfinityScrollList, Screen, Text} from '@components';
+import {InfinityScrollList, Screen, Text} from '@components';
+import {useAppNavigation} from '@hooks';
 import {AppTabScreenProps} from '@routes';
 
 const NUM_COLUMNS = 2;
@@ -15,15 +16,15 @@ const ITEM_MARGIN = 8 * 2;
 const ITEM_WIDTH =
   (SCREEN_WIDTH - SCREEN_PADDING * 2 - ITEM_MARGIN) / NUM_COLUMNS;
 
-export function Favorite({navigation}: AppTabScreenProps<'Favorite'>) {
+export function Favorite({}: AppTabScreenProps<'Favorite'>) {
+  const navigate = useAppNavigation();
   function renderItem({item}: ListRenderItemInfo<PostReaction>) {
     return (
       <Pressable
         onPress={() =>
-          navigation.navigate('PostComment', {
+          navigate.toPostDetail({
             postId: item.post.id,
             postAuthor: item.author.id,
-            showPost: true,
           })
         }>
         <Image

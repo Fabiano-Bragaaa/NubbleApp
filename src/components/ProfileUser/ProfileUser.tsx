@@ -2,7 +2,8 @@ import {ReactNode} from 'react';
 import {GestureResponderEvent} from 'react-native';
 
 import {User} from '@domain';
-import {useNavigation} from '@react-navigation/native';
+
+import {useAppNavigation} from '@hooks';
 
 import {Box, PressableBox, PressableBoxProps} from '../../components/Box/Box';
 import {
@@ -24,13 +25,13 @@ export function ProfileUser({
   rightComponent,
   ...presableBoxProps
 }: ProfileUserProps) {
-  const {navigate} = useNavigation();
+  const navigate = useAppNavigation();
 
   function handleOnPress(event: GestureResponderEvent) {
     if (onPress) {
       onPress(event);
     }
-    navigate('Profile', {userId: user.id});
+    navigate.toProfile(user.id);
   }
 
   return (
