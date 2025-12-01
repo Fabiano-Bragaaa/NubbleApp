@@ -11,7 +11,7 @@ type ItemTConstraints = {
 };
 
 type Props<ItemT extends ItemTConstraints> = {
-  queryKey: QueryKeys;
+  queryKey: Parameters<typeof usePaginatedList<ItemT>>[0];
   getList: Parameters<typeof usePaginatedList<ItemT>>[1];
   renderItem: FlatListProps<ItemT>['renderItem'];
   flatListProps?: Omit<Partial<FlatListProps<ItemT>>, 'renderItem'>;
@@ -28,7 +28,7 @@ export function InfinityScrollList<ItemT extends ItemTConstraints>({
   const flatListRef = useRef<FlatList<ItemT>>(null);
   useScrollToTop(flatListRef);
   const {list, isLoading, refresh, fetchNextPage, isError} = usePaginatedList(
-    [queryKey],
+    queryKey,
     getList,
   );
 

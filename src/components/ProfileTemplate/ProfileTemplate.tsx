@@ -7,8 +7,10 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {Post, usePostList, useUserGetById} from '@domain';
+import {Post, postService, useUserGetById} from '@domain';
+import {QueryKeys} from '@infra';
 
+import {InfinityScrollList} from '../InfinityScrollList/InfinityScrollList';
 import {Screen} from '../Screen/Screen';
 
 import {ProfileHeader} from './components/ProfileHeader';
@@ -23,8 +25,6 @@ export function ProfileTemplate({
   isMyProfile = false,
 }: ProfileTemplateProps) {
   const {user} = useUserGetById(userId);
-
-  const {list} = usePostList();
 
   const NUM_COLUMNS = 3;
   const SCREEN_WIDTH = Dimensions.get('screen').width;
@@ -44,14 +44,20 @@ export function ProfileTemplate({
     return <ProfileHeader user={user} isMyProfile={isMyProfile} />;
   }
 
+  async function getPostList(page: number) {
+    return await postService.getList(page, userId);
+  }
+
   return (
     <Screen canGoBack={!isMyProfile} style={$screen}>
-      <FlatList
-        data={list}
+      <InfinityScrollList
+        queryKey={[QueryKeys.PostList, userId]}
+        getList={getPostList}
         renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        ListHeaderComponent={renderHeader}
-        numColumns={NUM_COLUMNS}
+        flatListProps={{
+          ListHeaderComponent: renderHeader,
+          numColumns: NUM_COLUMNS,
+        }}
       />
     </Screen>
   );
