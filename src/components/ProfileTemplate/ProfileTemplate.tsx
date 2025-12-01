@@ -1,4 +1,11 @@
-import {FlatList, Image, ListRenderItemInfo} from 'react-native';
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  ListRenderItemInfo,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 import {Post, usePostList, useUserGetById} from '@domain';
 
@@ -19,9 +26,15 @@ export function ProfileTemplate({
 
   const {list} = usePostList();
 
+  const NUM_COLUMNS = 3;
+  const SCREEN_WIDTH = Dimensions.get('screen').width;
+  const ITEM_WIDTH = SCREEN_WIDTH / NUM_COLUMNS;
   function renderItem({item}: ListRenderItemInfo<Post>) {
     return (
-      <Image source={{uri: item.imageURL}} style={{width: 100, height: 100}} />
+      <Image
+        source={{uri: item.imageURL}}
+        style={{width: ITEM_WIDTH, height: ITEM_WIDTH}}
+      />
     );
   }
 
@@ -32,12 +45,19 @@ export function ProfileTemplate({
   }
 
   return (
-    <Screen canGoBack={!isMyProfile}>
+    <Screen canGoBack={!isMyProfile} style={$screen}>
       <FlatList
         data={list}
         renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
         ListHeaderComponent={renderHeader}
+        numColumns={NUM_COLUMNS}
       />
     </Screen>
   );
 }
+
+const $screen: StyleProp<ViewStyle> = {
+  paddingBottom: 0,
+  paddingHorizontal: 0,
+};
