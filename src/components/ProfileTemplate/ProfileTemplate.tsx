@@ -1,15 +1,17 @@
 import {useState} from 'react';
 import {
   Dimensions,
-  FlatList,
   Image,
   ListRenderItemInfo,
+  Pressable,
   StyleProp,
   ViewStyle,
 } from 'react-native';
 
 import {Post, postService, useUserGetById} from '@domain';
 import {QueryKeys} from '@infra';
+
+import {useAppNavigation} from '@hooks';
 
 import {InfinityScrollList} from '../InfinityScrollList/InfinityScrollList';
 import {Screen} from '../Screen/Screen';
@@ -27,16 +29,24 @@ export function ProfileTemplate({
 }: ProfileTemplateProps) {
   const {user} = useUserGetById(userId);
   const [publicationsCount, setPublicationsCount] = useState(0);
-
+  const navigate = useAppNavigation();
   const NUM_COLUMNS = 3;
   const SCREEN_WIDTH = Dimensions.get('screen').width;
   const ITEM_WIDTH = SCREEN_WIDTH / NUM_COLUMNS;
   function renderItem({item}: ListRenderItemInfo<Post>) {
     return (
-      <Image
-        source={{uri: item.imageURL}}
-        style={{width: ITEM_WIDTH, height: ITEM_WIDTH}}
-      />
+      <Pressable
+        onPress={() => {
+          navigate.toPostDetail({
+            postId: item.id,
+            postAuthor: item.author.id,
+          });
+        }}>
+        <Image
+          source={{uri: item.imageURL}}
+          style={{width: ITEM_WIDTH, height: ITEM_WIDTH}}
+        />
+      </Pressable>
     );
   }
 
