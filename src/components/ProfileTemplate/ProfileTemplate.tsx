@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {
   Dimensions,
   FlatList,
@@ -25,6 +26,7 @@ export function ProfileTemplate({
   isMyProfile = false,
 }: ProfileTemplateProps) {
   const {user} = useUserGetById(userId);
+  const [publicationsCount, setPublicationsCount] = useState(0);
 
   const NUM_COLUMNS = 3;
   const SCREEN_WIDTH = Dimensions.get('screen').width;
@@ -41,11 +43,19 @@ export function ProfileTemplate({
   function renderHeader() {
     if (!user) return null;
 
-    return <ProfileHeader user={user} isMyProfile={isMyProfile} />;
+    return (
+      <ProfileHeader
+        user={user}
+        isMyProfile={isMyProfile}
+        publicationsCount={publicationsCount.toString()}
+      />
+    );
   }
 
   async function getPostList(page: number) {
-    return await postService.getList(page, userId);
+    const response = await postService.getList(page, userId);
+    setPublicationsCount(response.meta.total);
+    return response;
   }
 
   return (

@@ -12,9 +12,14 @@ import {ProfileMetadata} from './ProfileMetadata';
 type ProfileHeaderProps = {
   user: User;
   isMyProfile?: boolean;
+  publicationsCount: string;
 };
 
-export function ProfileHeader({user, isMyProfile = false}: ProfileHeaderProps) {
+export function ProfileHeader({
+  user,
+  isMyProfile = false,
+  publicationsCount,
+}: ProfileHeaderProps) {
   const {navigate} = useNavigation();
   if (!user) return null;
 
@@ -33,9 +38,9 @@ export function ProfileHeader({user, isMyProfile = false}: ProfileHeaderProps) {
           @{user.username}
         </Text>
         <ProfileMetadata
-          followersCount="105"
-          followingCount="105"
-          postsCount="105"
+          followersCount={user.meta.followersCount}
+          followingCount={user.meta.followingCount}
+          postsCount={publicationsCount}
         />
         {isMyProfile && (
           <Box position="absolute" alignSelf="flex-end">

@@ -12,6 +12,10 @@ const user1: UserApi = {
   is_online: false,
 
   full_name: 'Marcelo Tavares',
+  meta: {
+    followers_count: '100',
+    following_count: '100',
+  },
 };
 
 const user2: UserApi = {
@@ -24,6 +28,10 @@ const user2: UserApi = {
     'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/1-maria.png',
   is_online: false,
   full_name: 'Maria Julia',
+  meta: {
+    followers_count: '100',
+    following_count: '100',
+  },
 };
 
 const userList: UserApi[] = [user1, user2];

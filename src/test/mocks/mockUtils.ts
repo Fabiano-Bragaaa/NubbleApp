@@ -10,6 +10,10 @@ const mateusUserAPI: UserApi = {
     'https://nubble-development.s3.sa-east-1.amazonaws.com/backend-integration/8-mateus.png',
   is_online: false,
   full_name: 'Mateus de Souza',
+  meta: {
+    followers_count: '100',
+    following_count: '100',
+  },
 };
 
 export const mateusAuthCredentials: AuthCredentials = {

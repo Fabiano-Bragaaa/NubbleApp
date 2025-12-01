@@ -14,6 +14,10 @@ function toUser(userAPI: UserApi): User {
     username: userAPI.username,
     isOnline: userAPI.is_online,
     profileUrl: userAPI.profile_url,
+    meta: {
+      followersCount: userAPI.meta.followers_count,
+      followingCount: userAPI.meta.following_count,
+    },
   };
 }
 
