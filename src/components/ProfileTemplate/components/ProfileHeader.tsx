@@ -1,6 +1,8 @@
 import {User} from '@domain';
+import {useNavigation} from '@react-navigation/native';
 
 import {Box} from '../../Box/Box';
+import {Icon} from '../../Icon/Icon';
 import {ProfileAvatar} from '../../ProfileAvatar/ProfileAvatar';
 import {Text} from '../../Text/Text';
 
@@ -8,9 +10,11 @@ import {ProfileMetadata} from './ProfileMetadata';
 
 type ProfileHeaderProps = {
   user: User;
+  isMyProfile?: boolean;
 };
 
-export function ProfileHeader({user}: ProfileHeaderProps) {
+export function ProfileHeader({user, isMyProfile = false}: ProfileHeaderProps) {
+  const {navigate} = useNavigation();
   if (!user) return null;
 
   return (
@@ -27,6 +31,15 @@ export function ProfileHeader({user}: ProfileHeaderProps) {
         followingCount="105"
         postsCount="105"
       />
+      {isMyProfile && (
+        <Box position="absolute" alignSelf="flex-end">
+          <Icon
+            name="settings"
+            size={30}
+            onPress={() => navigate('Settings')}
+          />
+        </Box>
+      )}
     </Box>
   );
 }

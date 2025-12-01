@@ -15,8 +15,7 @@ export function ProfileTemplate({
   userId,
   isMyProfile = false,
 }: ProfileTemplateProps) {
-  const {isError, isLoading, user, isRefetching, refetch} =
-    useUserGetById(userId);
+  const {user} = useUserGetById(userId);
 
   const {list} = usePostList();
 
@@ -29,7 +28,7 @@ export function ProfileTemplate({
   function renderHeader() {
     if (!user) return null;
 
-    return <ProfileHeader user={user} />;
+    return <ProfileHeader user={user} isMyProfile={isMyProfile} />;
   }
 
   return (
