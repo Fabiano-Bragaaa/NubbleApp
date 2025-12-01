@@ -2,16 +2,19 @@ import {FlatList, Image, ListRenderItemInfo} from 'react-native';
 
 import {Post, usePostList, useUserGetById} from '@domain';
 
-import {Box} from '../Box/Box';
-import {ProfileAvatar} from '../ProfileAvatar/ProfileAvatar';
 import {Screen} from '../Screen/Screen';
-import {Text} from '../Text/Text';
+
+import {ProfileHeader} from './components/ProfileHeader';
 
 type ProfileTemplateProps = {
   userId: number;
+  isMyProfile?: boolean;
 };
 
-export function ProfileTemplate({userId}: ProfileTemplateProps) {
+export function ProfileTemplate({
+  userId,
+  isMyProfile = false,
+}: ProfileTemplateProps) {
   const {isError, isLoading, user, isRefetching, refetch} =
     useUserGetById(userId);
 
@@ -26,17 +29,11 @@ export function ProfileTemplate({userId}: ProfileTemplateProps) {
   function renderHeader() {
     if (!user) return null;
 
-    return (
-      <Box>
-        <ProfileAvatar imageUrl={user.profileUrl} />
-        <Text preset="headingMedium">{user.fullName}</Text>
-        <Text preset="paragraphMedium">{user.username}</Text>
-      </Box>
-    );
+    return <ProfileHeader user={user} />;
   }
 
   return (
-    <Screen canGoBack>
+    <Screen canGoBack={!isMyProfile}>
       <FlatList
         data={list}
         renderItem={renderItem}
