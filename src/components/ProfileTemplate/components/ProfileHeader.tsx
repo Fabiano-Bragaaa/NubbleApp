@@ -8,6 +8,7 @@ import {Icon} from '../../Icon/Icon';
 import {ProfileAvatar} from '../../ProfileAvatar/ProfileAvatar';
 import {Text} from '../../Text/Text';
 
+import {ProfileButton} from './ProfileButton';
 import {ProfileMetadata} from './ProfileMetadata';
 
 type ProfileHeaderProps = {
@@ -57,7 +58,7 @@ export function ProfileHeader({
           </Box>
         )}
       </Box>
-      <Button title="Editar perfil" onPress={() => {}} marginVertical="s24" />
+      <ProfileButton isMyProfile={isMyProfile} isFollowing={false} />
     </Box>
   );
 }
