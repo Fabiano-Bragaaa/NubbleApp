@@ -1,6 +1,7 @@
 import {User} from '@domain';
 import {useNavigation} from '@react-navigation/native';
 
+import {BackButton} from '../../BackButton/BackButton';
 import {Box} from '../../Box/Box';
 import {Button} from '../../Button/Button';
 import {Icon} from '../../Icon/Icon';
@@ -42,13 +43,17 @@ export function ProfileHeader({
           followingCount={user.meta.followingCount}
           postsCount={publicationsCount}
         />
-        {isMyProfile && (
+        {isMyProfile ? (
           <Box position="absolute" alignSelf="flex-end">
             <Icon
               name="settings"
               size={30}
               onPress={() => navigate('Settings')}
             />
+          </Box>
+        ) : (
+          <Box position="absolute" alignSelf="flex-start">
+            <BackButton />
           </Box>
         )}
       </Box>

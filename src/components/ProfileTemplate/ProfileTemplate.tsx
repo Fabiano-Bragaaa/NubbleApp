@@ -59,7 +59,7 @@ export function ProfileTemplate({
   }
 
   return (
-    <Screen canGoBack={!isMyProfile} style={$screen}>
+    <Screen style={$screen}>
       <InfinityScrollList
         queryKey={[QueryKeys.PostList, userId]}
         getList={getPostList}

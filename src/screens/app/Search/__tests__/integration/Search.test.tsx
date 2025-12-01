@@ -52,7 +52,7 @@ describe('Integration: Search', () => {
     expect(userFullName).toBeTruthy();
 
     //7) Press the back button
-    const backButton = screen.getByText(/voltar/i);
+    const backButton = screen.getByTestId('back-button');
     fireEvent.press(backButton);
 
     //7) Find the first user
