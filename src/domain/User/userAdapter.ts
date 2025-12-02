@@ -2,7 +2,7 @@
  * @description Adapta o UserAPI para o modelo de user
  */
 
-import {User, UserApi} from './userTypes';
+import {User, UserApi, UserDetails} from './userTypes';
 
 function toUser(userAPI: UserApi): User {
   return {
@@ -21,6 +21,14 @@ function toUser(userAPI: UserApi): User {
   };
 }
 
+function toUserDetais(userApi: UserApi, isFollowing: boolean): UserDetails {
+  return {
+    ...toUser(userApi),
+    isFollowing,
+  };
+}
+
 export const userAdapter = {
   toUser,
+  toUserDetais,
 };
