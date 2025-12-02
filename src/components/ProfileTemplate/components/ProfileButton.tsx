@@ -25,11 +25,13 @@ const buttonVariants: Record<
 type ProfileButtonProps = {
   isMyProfile?: boolean;
   isFollowing?: boolean;
+  userId: number;
 };
 
 export function ProfileButton({
   isMyProfile = false,
   isFollowing = false,
+  userId,
 }: ProfileButtonProps) {
   const variant = getVariant({isFollowing, isMyProfile});
   const buttonProps = buttonVariants[variant];
@@ -37,7 +39,9 @@ export function ProfileButton({
 
   function handleOnPress() {
     if (isMyProfile) {
-      navigation.navigate('EditProfile');
+      navigation.navigate('EditProfile', {
+        userId,
+      });
     }
   }
 

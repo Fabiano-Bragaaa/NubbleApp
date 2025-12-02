@@ -35,7 +35,9 @@ export type AppStackParamList = {
   Camera: undefined;
   EditEmail: undefined;
   EditPassword: undefined;
-  EditProfile: undefined;
+  EditProfile: {
+    userId: number;
+  };
 };
 
 const {Navigator, Screen} = createNativeStackNavigator<AppStackParamList>();
