@@ -14,5 +14,8 @@ export * from './app/Search/Search';
 export * from './app/PublishPost/PublishPost';
 export * from './app/Camera/Camera';
 export * from './app/DarkMode/DarkMode';
+export * from './app/EditEmail/EditEmail';
+export * from './app/EditPassword/EditPassword';
+export * from './app/EditProfile/EditProfile';
 
 export * from './onboarding/OnBoarding';

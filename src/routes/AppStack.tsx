@@ -4,6 +4,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   Camera,
   DarkMode,
+  EditEmail,
+  EditPassword,
+  EditProfile,
   PostComment,
   Profile,
   PublishPost,
@@ -30,6 +33,9 @@ export type AppStackParamList = {
     imageUri: string;
   };
   Camera: undefined;
+  EditEmail: undefined;
+  EditPassword: undefined;
+  EditProfile: undefined;
 };
 
 const {Navigator, Screen} = createNativeStackNavigator<AppStackParamList>();
@@ -53,6 +59,9 @@ export function AppStack({
       <Screen name="Search" component={Search} />
       <Screen name="PublishPost" component={PublishPost} />
       <Screen name="Camera" component={Camera} />
+      <Screen name="EditEmail" component={EditEmail} />
+      <Screen name="EditPassword" component={EditPassword} />
+      <Screen name="EditProfile" component={EditProfile} />
     </Navigator>
   );
 }
