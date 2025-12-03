@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import React, {Ref, useEffect, useImperativeHandle} from 'react';
 
 import {authService, User} from '@domain';
 import {useAsyncValidation} from '@form';
@@ -14,8 +14,15 @@ type Props = {
   onChangeIsValid: (isValid: boolean) => void;
 };
 
-export function EditProfileForm({user, onChangeIsValid}: Props) {
-  const {control, formState, watch, getFieldState} = useForm({
+export type EditProfileFormRef = {
+  onSubmit: () => void;
+};
+
+export function EditProfileFormComponent(
+  {user, onChangeIsValid}: Props,
+  ref: Ref<EditProfileFormRef>,
+) {
+  const {control, formState, watch, getFieldState, handleSubmit} = useForm({
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
       username: user.username,
@@ -36,6 +43,13 @@ export function EditProfileForm({user, onChangeIsValid}: Props) {
   useEffect(() => {
     onChangeIsValid(formState.isValid && !usernameValidation.notReady);
   }, [formState.isValid, onChangeIsValid, usernameValidation.notReady]);
+
+  useImperativeHandle(ref, () => ({
+    onSubmit: () =>
+      handleSubmit(formValues => {
+        console.log(formValues);
+      })(),
+  }));
 
   return (
     <Box>
@@ -72,3 +86,5 @@ export function EditProfileForm({user, onChangeIsValid}: Props) {
     </Box>
   );
 }
+
+export const EditProfileForm = React.forwardRef(EditProfileFormComponent);
