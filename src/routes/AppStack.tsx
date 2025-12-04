@@ -36,7 +36,9 @@ export type AppStackParamList = {
   EditEmail: {
     userId: number;
   };
-  EditPassword: undefined;
+  EditPassword: {
+    userId: number;
+  };
   EditProfile: {
     userId: number;
   };

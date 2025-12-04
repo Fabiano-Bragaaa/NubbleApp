@@ -48,7 +48,7 @@ export function EditProfile({
             label="senha"
             value={'*********'}
             onPress={() =>
-              navigation.navigate('EditEmail', {
+              navigation.navigate('EditPassword', {
                 userId: route.params.userId,
               })
             }
