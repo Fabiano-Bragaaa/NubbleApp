@@ -2,7 +2,7 @@ import {useRef, useState} from 'react';
 
 import {useUserGetById} from '@domain';
 
-import {Button, Screen} from '@components';
+import {Button, InputButton, Screen} from '@components';
 import {AppScreenProps} from '@routes';
 
 import {
@@ -11,7 +11,10 @@ import {
 } from './components/EditProfileForm';
 import {EditProfileHeader} from './components/EditProfileHeader';
 
-export function EditProfile({route}: AppScreenProps<'EditProfile'>) {
+export function EditProfile({
+  route,
+  navigation,
+}: AppScreenProps<'EditProfile'>) {
   const {user} = useUserGetById(route.params.userId);
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -23,14 +26,36 @@ export function EditProfile({route}: AppScreenProps<'EditProfile'>) {
 
   return (
     <Screen canGoBack scrollable title="Editar Senha">
-      <EditProfileHeader user={user} />
+      <EditProfileHeader user={user} mb="s24" />
       {user && (
-        <EditProfileForm
-          user={user}
-          onChangeIsValid={setFormIsValid}
-          ref={formRef}
-        />
+        <>
+          <EditProfileForm
+            user={user}
+            onChangeIsValid={setFormIsValid}
+            ref={formRef}
+          />
+          <InputButton
+            label="email"
+            value={user?.email || ''}
+            onPress={() =>
+              navigation.navigate('EditEmail', {
+                userId: route.params.userId,
+              })
+            }
+            mb="s16"
+          />
+          <InputButton
+            label="senha"
+            value={'*********'}
+            onPress={() =>
+              navigation.navigate('EditEmail', {
+                userId: route.params.userId,
+              })
+            }
+          />
+        </>
       )}
+
       <Button
         title="Salvar alterações"
         mt="s40"

@@ -33,7 +33,9 @@ export type AppStackParamList = {
     imageUri: string;
   };
   Camera: undefined;
-  EditEmail: undefined;
+  EditEmail: {
+    userId: number;
+  };
   EditPassword: undefined;
   EditProfile: {
     userId: number;

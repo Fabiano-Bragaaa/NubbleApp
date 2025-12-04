@@ -1,12 +1,12 @@
 import {User} from '@domain';
 
-import {Box, PressableBox, ProfileAvatar, Text} from '@components';
+import {Box, BoxProps, PressableBox, ProfileAvatar, Text} from '@components';
 
 type Props = {
   user?: User;
-};
+} & BoxProps;
 
-export function EditProfileHeader({user}: Props) {
+export function EditProfileHeader({user, ...boxProps}: Props) {
   if (!user) return null;
 
   function navigateToPhotoEdit() {
@@ -14,7 +14,7 @@ export function EditProfileHeader({user}: Props) {
   }
 
   return (
-    <Box flexDirection="row" alignItems="center">
+    <Box flexDirection="row" alignItems="center" {...boxProps}>
       <ProfileAvatar size={64} borderRadius={24} imageUrl={user.profileUrl} />
       <PressableBox hitSlop={10} onPress={navigateToPhotoEdit}>
         <Text preset="paragraphMedium" color="primary" bold ml="s16">
