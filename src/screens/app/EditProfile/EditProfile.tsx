@@ -17,6 +17,7 @@ export function EditProfile({
 }: AppScreenProps<'EditProfile'>) {
   const {user} = useUserGetById(route.params.userId);
   const [formIsValid, setFormIsValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const formRef = useRef<EditProfileFormRef>(null);
 
@@ -32,6 +33,7 @@ export function EditProfile({
           <EditProfileForm
             user={user}
             onChangeIsValid={setFormIsValid}
+            onChangeIsLoading={setIsLoading}
             ref={formRef}
           />
           <InputButton
@@ -61,6 +63,7 @@ export function EditProfile({
         mt="s40"
         onPress={submitForm}
         disabled={!formIsValid}
+        loading={isLoading}
       />
     </Screen>
   );

@@ -1,8 +1,9 @@
 import React, {Ref, useEffect, useImperativeHandle} from 'react';
 
-import {authService, User} from '@domain';
+import {authService, User, useUserUpdate} from '@domain';
 import {useAsyncValidation} from '@form';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useNavigation} from '@react-navigation/native';
 import {useForm} from 'react-hook-form';
 
 import {ActivityIndicator, Box, FormTextInput} from '@components';
@@ -12,6 +13,7 @@ import {editProfileSchema} from '../editProfileSchema';
 type Props = {
   user: User;
   onChangeIsValid: (isValid: boolean) => void;
+  onChangeIsLoading: (isLoading: boolean) => void;
 };
 
 export type EditProfileFormRef = {
@@ -19,7 +21,7 @@ export type EditProfileFormRef = {
 };
 
 export function EditProfileFormComponent(
-  {user, onChangeIsValid}: Props,
+  {user, onChangeIsValid, onChangeIsLoading}: Props,
   ref: Ref<EditProfileFormRef>,
 ) {
   const {control, formState, watch, getFieldState, handleSubmit} = useForm({
@@ -40,16 +42,22 @@ export function EditProfileFormComponent(
     errorMessage: 'username indisponível',
   });
 
+  const navigation = useNavigation();
+  const {mutate, isLoading} = useUserUpdate({
+    onSuccess: navigation.goBack,
+  });
+
   useEffect(() => {
     onChangeIsValid(formState.isValid && !usernameValidation.notReady);
   }, [formState.isValid, onChangeIsValid, usernameValidation.notReady]);
 
   useImperativeHandle(ref, () => ({
-    onSubmit: () =>
-      handleSubmit(formValues => {
-        console.log(formValues);
-      })(),
+    onSubmit: () => handleSubmit(formValues => mutate(formValues))(),
   }));
+
+  useEffect(() => {
+    onChangeIsLoading(isLoading);
+  }, [isLoading, onChangeIsLoading]);
 
   return (
     <Box>
