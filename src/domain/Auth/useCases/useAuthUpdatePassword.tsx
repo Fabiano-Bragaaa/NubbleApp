@@ -1,11 +1,12 @@
 import {MutationOptions} from '@infra';
 import {useMutation} from '@tanstack/react-query';
+import {errorUtils} from '@utils';
 
 import {authService} from '../authService';
 import {EditPasswordParams} from '../authTypes';
 
 export function useAuthUpdatePassword(options?: MutationOptions<string>) {
-  const {mutate, isLoading} = useMutation<string, Error, EditPasswordParams>({
+  const {mutate, isLoading} = useMutation<string, unknown, EditPasswordParams>({
     mutationFn: authService.updatePassword,
     retry: false,
     onSuccess: message => {
@@ -15,7 +16,7 @@ export function useAuthUpdatePassword(options?: MutationOptions<string>) {
     },
     onError: error => {
       if (options?.onError) {
-        options.onError(error.message);
+        options.onError(errorUtils.getErrorMessage(error));
       }
     },
   });
