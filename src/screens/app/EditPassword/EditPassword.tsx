@@ -2,6 +2,7 @@ import React from 'react';
 
 import {useAuthUpdatePassword} from '@domain';
 import {zodResolver} from '@hookform/resolvers/zod';
+import {useToastService} from '@services';
 import {useForm} from 'react-hook-form';
 
 import {Button, FormPasswordTextInput, Screen, Text} from '@components';
@@ -16,7 +17,12 @@ const defaultValues: EditPasswordSchema = {
 };
 
 export function EditPassword({}: AppScreenProps<'EditPassword'>) {
-  const {isLoading, updatePassword} = useAuthUpdatePassword();
+  const {showToast} = useToastService();
+  const {isLoading, updatePassword} = useAuthUpdatePassword({
+    onError: message => {
+      showToast({message, type: 'error'});
+    },
+  });
   const {handleSubmit, control, formState} = useForm<EditPasswordSchema>({
     resolver: zodResolver(editPasswordSchema),
     defaultValues,
