@@ -1,6 +1,7 @@
 import {createContext, PropsWithChildren, useEffect, useState} from 'react';
 
-import {api, registerInterceptor} from '@api';
+import {registerInterceptor} from '@api';
+import {User} from '@domain';
 
 import {authApi} from '../../../domain/Auth/authApi';
 import {authService} from '../../../domain/Auth/authService';
@@ -15,6 +16,7 @@ export const AuthCredentialsContext = createContext<AuthCredentialsService>({
   userId: null,
   saveCredentials: async () => {},
   removeCredentials: async () => {},
+  updatedUser: () => {},
 });
 
 export function AuthCredentialsProvider({children}: PropsWithChildren<{}>) {
@@ -56,6 +58,12 @@ export function AuthCredentialsProvider({children}: PropsWithChildren<{}>) {
     setAuhCredentials(ac);
   }
 
+  function updatedUser(user: User): void {
+    if (authCredentials) {
+      setAuhCredentials({...authCredentials, user});
+    }
+  }
+
   async function removeCredentials(): Promise<void> {
     authService.removeToken();
     authCredentialsStorage.remove();
@@ -75,6 +83,7 @@ export function AuthCredentialsProvider({children}: PropsWithChildren<{}>) {
         isLoading,
         saveCredentials,
         removeCredentials,
+        updatedUser,
         userId,
       }}>
       {children}

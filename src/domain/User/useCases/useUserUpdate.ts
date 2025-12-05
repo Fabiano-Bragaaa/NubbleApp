@@ -7,7 +7,7 @@ import {UpdateUserParams, User} from '../userTypes';
 
 export function useUserUpdate(options?: MutationOptions<User>) {
   const queryClient = useQueryClient();
-  const {authCredentials} = useAuthCredentials();
+  const {authCredentials, updatedUser} = useAuthCredentials();
   const {mutate, isLoading} = useMutation<User, Error, UpdateUserParams>({
     mutationFn: params => updateUser(params),
     retry: false,
@@ -18,6 +18,7 @@ export function useUserUpdate(options?: MutationOptions<User>) {
     },
     onSuccess: user => {
       queryClient.invalidateQueries([QueryKeys.UserGetById, user.id]);
+      updatedUser(user);
       if (options?.onSuccess) {
         options.onSuccess(user);
       }
