@@ -47,3 +47,8 @@ export interface FieldIsAvailableAPI {
 export interface forgotPasswordParam {
   email: string;
 }
+
+export interface EditPasswordParams {
+  currentPassword: string;
+  newPassword: string;
+}

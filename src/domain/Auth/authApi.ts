@@ -5,6 +5,7 @@ import {UserApi} from '../User';
 
 import {
   AuthCredentialsAPI,
+  EditPasswordParams,
   FieldIsAvailableAPI,
   forgotPasswordParam,
   SignUpDataAPI,
@@ -28,6 +29,17 @@ async function signOut(): Promise<string> {
   const {data} = await api.get<string>('auth/profile/logout');
 
   return data;
+}
+
+async function editPassword(
+  params: EditPasswordParams,
+): Promise<{message: string}> {
+  const response = await api.post<{message: string}>(
+    'auth/profile/edit-password',
+    params,
+  );
+
+  return response.data;
 }
 
 async function signUp(data: SignUpDataAPI): Promise<UserApi> {
@@ -93,4 +105,5 @@ export const authApi = {
   forgotPassword,
   refreshToken,
   isRefreshTokenRequest,
+  editPassword,
 };
