@@ -1,4 +1,5 @@
 export * from './Auth';
+export * from './Follow';
 export * from './Post';
 export * from './PostComment';
 export * from './PostReaction';
