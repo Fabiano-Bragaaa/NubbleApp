@@ -12,6 +12,8 @@ import {
   PublishPost,
   Search,
   Settings,
+  Followers,
+  Following,
 } from '@screens';
 
 import {AppTabBottomTabParamList, AppTabNavigator} from './AppTabNavigator';
@@ -42,6 +44,8 @@ export type AppStackParamList = {
   EditProfile: {
     userId: number;
   };
+  Followers: undefined;
+  Following: undefined;
 };
 
 const {Navigator, Screen} = createNativeStackNavigator<AppStackParamList>();
@@ -68,6 +72,8 @@ export function AppStack({
       <Screen name="EditEmail" component={EditEmail} />
       <Screen name="EditPassword" component={EditPassword} />
       <Screen name="EditProfile" component={EditProfile} />
+      <Screen name="Followers" component={Followers} />
+      <Screen name="Following" component={Following} />
     </Navigator>
   );
 }

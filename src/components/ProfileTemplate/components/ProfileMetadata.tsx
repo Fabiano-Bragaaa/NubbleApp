@@ -1,20 +1,33 @@
-import {Box} from '../../Box/Box';
+import {useNavigation} from '@react-navigation/native';
+
+import {Box, PressableBox} from '../../Box/Box';
 import {Text} from '../../Text/Text';
 
 type ProfileMetadataProps = {
   followersCount: string;
   followingCount: string;
   postsCount: string;
+  isMyProfile: boolean;
 };
 export function ProfileMetadata({
   followersCount,
   followingCount,
   postsCount,
+  isMyProfile,
 }: ProfileMetadataProps) {
+  const navigation = useNavigation();
   const items: ItemType[] = [
     {label: 'Publicações', value: postsCount},
-    {label: 'Seguidores', value: followingCount},
-    {label: 'Seguindo', value: followersCount},
+    {
+      label: 'Seguidores',
+      value: followingCount,
+      onPress: () => navigation.navigate('Followers'),
+    },
+    {
+      label: 'Seguindo',
+      value: followersCount,
+      onPress: () => navigation.navigate('Following'),
+    },
   ];
   return (
     <Box
@@ -23,7 +36,7 @@ export function ProfileMetadata({
       mt="s24"
       columnGap="s32">
       {items.map(item => (
-        <Item key={item.label} {...item} />
+        <Item isMyProfile={isMyProfile} key={item.label} {...item} />
       ))}
     </Box>
   );
@@ -32,12 +45,18 @@ export function ProfileMetadata({
 type ItemType = {
   label: string;
   value: string;
+  onPress?: () => void;
 };
-function Item({label, value}: ItemType) {
+function Item({
+  label,
+  value,
+  onPress,
+  isMyProfile,
+}: ItemType & {isMyProfile?: boolean}) {
   return (
-    <Box alignItems="center">
+    <PressableBox alignItems="center" onPress={onPress} disabled={!isMyProfile}>
       <Text preset="headingSmall">{value}</Text>
       <Text preset="paragraphSmall">{label}</Text>
-    </Box>
+    </PressableBox>
   );
 }

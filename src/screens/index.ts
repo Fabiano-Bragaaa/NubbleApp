@@ -17,5 +17,7 @@ export * from './app/DarkMode/DarkMode';
 export * from './app/EditEmail/EditEmail';
 export * from './app/EditPassword/EditPassword';
 export * from './app/EditProfile/EditProfile';
+export * from './app/Followers/Followers';
+export * from './app/Following/Following';
 
 export * from './onboarding/OnBoarding';
