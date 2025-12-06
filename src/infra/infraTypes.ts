@@ -9,4 +9,6 @@ export enum QueryKeys {
   isEmailAvailable = 'isEmailAvailable',
   FavoriteList = 'FavoriteList',
   AsyncValidation = 'AsyncValidation',
+  Following = 'Following',
+  Followers = 'Followers',
 }
