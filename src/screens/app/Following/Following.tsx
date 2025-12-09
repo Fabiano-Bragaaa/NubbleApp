@@ -12,6 +12,7 @@ export function Following({}: AppScreenProps<'Following'>) {
       showToast({
         message: 'Seguindo removido',
         type: 'success',
+        position: 'bottom',
         action: {
           title: 'Desfazer',
           onPress: undoRemoveFollow,

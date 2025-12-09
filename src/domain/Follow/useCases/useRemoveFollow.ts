@@ -16,6 +16,7 @@ export function useRemoveFollow(options?: MutationOptions<void>) {
     mutationFn: followService.removeFollow,
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: [QueryKeys.Following]});
+      queryClient.invalidateQueries({queryKey: [QueryKeys.Followers]});
       queryClient.invalidateQueries({
         queryKey: [QueryKeys.UserGetById],
       });
